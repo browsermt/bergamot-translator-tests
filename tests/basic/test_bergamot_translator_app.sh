@@ -19,6 +19,6 @@ ARGS=(
     --quiet 
 )
 
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > bergamot.output
-
-exit 0
+${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > bergamot.out
+diff -bsq bergamot.out bergamot.expected
+exit $?
