@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Marian regression test script. Invocation examples:
-#  ./run_mrt.sh
-#  ./run_mrt.sh tests/training/basics
-#  ./run_mrt.sh tests/training/basics/test_valid_script.sh
-#  ./run_mrt.sh previous.log
-#  ./run_mrt.sh '#tag'
+#  ./run_brt.sh
+#  ./run_brt.sh tests/training/basics
+#  ./run_brt.sh tests/training/basics/test_valid_script.sh
+#  ./run_brt.sh previous.log
+#  ./run_brt.sh '#tag'
 # where previous.log contains a list of test files in separate lines.
 
 # Environment variables:
