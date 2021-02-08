@@ -2,7 +2,6 @@ THREADS=16
 
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
-GIT_SACREBLEU=http://github.com/marian-nmt/sacreBLEU.git
 
 # Empty value means that all data and models will be downloaded
 TARBALLS=
@@ -22,10 +21,9 @@ tools: pip
 	mkdir -p $@
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull   || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
-	git -C $@/sacrebleu pull     || git clone $(GIT_SACREBLEU) $@/sacrebleu
 
 pip: requirements.txt
-	pip3 install --user -r $<
+	python3 -m pip install --user -r $<
 
 models:
 	mkdir -p $@

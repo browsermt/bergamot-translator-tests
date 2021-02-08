@@ -1,23 +1,25 @@
-
 #!/bin/bash
 
-URL="http://data.statmt.org/heafield/wngt20/test/"
+URL="http://data.statmt.org/heafield/wngt20/test"
 
 # Downloads the test-set of WNGT-20 data
-FILES=(
-    keys.xz
-    ref-emea.xz
-    ref-federal.xz
-    ref-tatoeba.xz
-    restore.py
-    sources.shuf.xz
+XZ_FILES=(
+    keys
+    ref-emea
+    ref-federal
+    ref-tatoeba
+    sources.shuf
 )
 
 OUTPUT_DIR="wngt20"
 mkdir -p ${OUTPUT_DIR};
 
-for FILE in ${FILES[@]}
+for FILE in ${XZ_FILES[@]}
 do
-    wget -c "${URL}/${FILE}" -P ${OUTPUT_DIR}
-    echo "Extracting ${FILE}" && unxz ${OUTPUT_DIR}/${FILE}
+    if test -f "${OUTPUT_DIR}/${FILE}"; then
+      echo "File exists, not redownloading";
+    else
+      wget --quiet --continue "${URL}/${FILE}.xz" -P ${OUTPUT_DIR}
+      echo "Extracting ${FILE}.xz" && unxz ${OUTPUT_DIR}/${FILE}.xz
+    fi
 done;
