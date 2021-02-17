@@ -36,8 +36,8 @@ ARGS=(
     --shortlist $BRT_MODELS/deen/lex.s2t.gz 50 50
     --int8shiftAlphaAll
     --cpu-threads 4
-    --max-input-sentence-tokens 1024
-    --max-input-tokens 1024
+    --max-length-break 1024
+    --mini-batch-words 1024
     -w 128
     --quiet 
 )
