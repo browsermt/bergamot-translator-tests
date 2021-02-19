@@ -66,7 +66,7 @@ ARGS=(
     --vocabs $BRT_MODELS/deen/vocab.deen.spm ${BRT_MODELS}/deen/vocab.deen.spm 
     --beam-size 1 --skip-cost --shortlist ${BRT_MODELS}/deen/lex.s2t.gz 50 50 
     --quiet --quiet-translation --int8shiftAlphaAll -w 128 
-    --max-input-sentence-tokens $MINI_BATCH_WORDS --max-input-tokens $MINI_BATCH_WORDS 
+    --max-length-break $MINI_BATCH_WORDS --mini-batch-words $MINI_BATCH_WORDS 
     --ssplit-mode sentence --cpu-threads ${THREADS} 
     --log ${TAG}.log -o ${TAG}.translated.log
 )
