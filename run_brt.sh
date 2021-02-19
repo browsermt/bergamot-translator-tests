@@ -35,15 +35,11 @@ export BRT_MARIAN="$( realpath ${MARIAN:-$BRT_ROOT/../build} )"
 export BRT_MODELS=$BRT_ROOT/models
 export BRT_DATA=$BRT_ROOT/data
 
-# Try adding build/ to MARIAN for backward compatibility
-if [[ ! -e $BRT_MARIAN/marian-decoder ]]; then
-    BRT_MARIAN="$BRT_MARIAN/build"
-fi
 
 export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
 # Check if required tools are present in marian directory
-for cmd in marian marian-decoder marian-scorer marian-vocab; do
+for cmd in app/service-cli app/bergamot-translator-app; do
     if [ ! -e $BRT_MARIAN/$cmd ]; then
         echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
         exit 1
@@ -53,16 +49,16 @@ done
 log "Using Marian binary: $BRT_MARIAN/marian"
 
 # Log Marian version
-export BRT_MARIAN_VERSION=$($BRT_MARIAN/marian --version 2>&1)
+export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
 log "Version: $BRT_MARIAN_VERSION"
 
 # Get CMake settings from the --build-info option
-if ! grep -q "build-info" < <( $BRT_MARIAN/marian --help ); then
+if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
     echo "Error: Marian is too old as it does not have the required --build-info option"
     exit 1
 fi
 
-$BRT_MARIAN/marian --build-info all 2> $BRT_ROOT/cmake.log
+$BRT_MARIAN/app/marian-decoder-new --build-info all 2> $BRT_ROOT/cmake.log
 
 # Check Marian compilation settings
 export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
