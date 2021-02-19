@@ -50,13 +50,15 @@ function run-marian-decoder {
         --log $LOGDIR/run.marian-decoder.$1.log -o $LOGDIR/run.marian-decoder.$1.translated.log
     )
     LOCAL_ARGS=(
+        --mini-batch 1
         --maxi-batch-sort src
     )
 
     $BERGAMOT_TRANSLATOR/marian-decoder "${COMMON_ARGS[@]}" "${LOCAL_ARGS[@]}" "${RUNTIME_ARGS[@]}" < $INPUT_FILE;
 }
 
-MAXI_BATCHES=(10000 5000 2500 1000 500 200 100 50 25)
+# MAXI_BATCHES=(10000 5000 2500 1000 500 200 100 50 25 10)
+MAXI_BATCHES=(10)
 for MAXI_BATCH in ${MAXI_BATCHES[@]}; do
     run-service $MAXI_BATCH
     run-marian-decoder $MAXI_BATCH
