@@ -129,7 +129,7 @@ function format_time {
 test_prefixes=tests
 
 if [ $# -ge 1 ]; then
-    # test_prefixes=
+    test_prefixes=
     for arg in "$@"; do
         # A log file with paths to test files
         if [[ "$arg" = *.log ]]; then
