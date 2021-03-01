@@ -55,7 +55,7 @@ if [ "$BRT_CUSTOM" = false ]; then
     export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
     log "Version: $BRT_MARIAN_VERSION"
 
-    Get CMake settings from the --build-info option
+    # Get CMake settings from the --build-info option
     if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
         echo "Error: Marian is too old as it does not have the required --build-info option"
         exit 1
@@ -129,7 +129,7 @@ function format_time {
 test_prefixes=tests
 
 if [ $# -ge 1 ]; then
-    test_prefixes=
+    # test_prefixes=
     for arg in "$@"; do
         # A log file with paths to test files
         if [[ "$arg" = *.log ]]; then
