@@ -35,27 +35,43 @@ export BRT_MARIAN="$( realpath ${MARIAN:-$BRT_ROOT/../build} )"
 export BRT_MODELS=$BRT_ROOT/models
 export BRT_DATA=$BRT_ROOT/data
 
+BRT_CUSTOM=false
+
 
 export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
-# Check if required tools are present in marian directory
-for cmd in app/service-cli app/bergamot-translator-app; do
-    if [ ! -e $BRT_MARIAN/$cmd ]; then
-        echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
+if [ "$BRT_CUSTOM" = false ]; then
+    # Check if required tools are present in marian directory
+    for cmd in app/service-cli app/bergamot-translator-app; do
+        if [ ! -e $BRT_MARIAN/$cmd ]; then
+            echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
+            exit 1
+        fi
+    done
+
+    #log "Using Marian binary: $BRT_MARIAN/marian"
+
+    # Log Marian version
+    export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
+    log "Version: $BRT_MARIAN_VERSION"
+
+    Get CMake settings from the --build-info option
+    if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
+        echo "Error: Marian is too old as it does not have the required --build-info option"
         exit 1
     fi
-done
+else
+    # Check if required tools are present in marian directory
+    for cmd in app/bergamot-translator-app; do
+        if [ ! -e $BRT_MARIAN/$cmd ]; then
+            echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
+            exit 1
+        fi
+    done
 
-#log "Using Marian binary: $BRT_MARIAN/marian"
-
-# Log Marian version
-export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
-log "Version: $BRT_MARIAN_VERSION"
-
-# Get CMake settings from the --build-info option
-if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
-    echo "Error: Marian is too old as it does not have the required --build-info option"
-    exit 1
+    # Log Marian version
+    export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot-translator-app --version 2>&1)
+    log "Version: $BRT_MARIAN_VERSION"
 fi
 
 # $BRT_MARIAN/app/marian-decoder-new --build-info all 2> $BRT_ROOT/cmake.log
