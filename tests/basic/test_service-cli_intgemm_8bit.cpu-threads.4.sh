@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Run tests for bergamot-translator-app
+# AUTHOR: jerinphilip 
+# TAGS: vanilla
+#####################################################################
+
 set -eo pipefail;
 
 # Skip if requirements are not met
