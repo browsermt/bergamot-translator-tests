@@ -28,6 +28,9 @@ pip: requirements.txt
 models:
 	mkdir -p $@
 	cd $@ && bash ./download-models.sh # $(TARBALLS)
+	cd deen/ende.student.tiny11
+	gunzip lex.s2t.gz # wasm build doesn't support zipped input
+	cd ../..
 
 data:
 	mkdir -p $@

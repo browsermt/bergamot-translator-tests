@@ -53,10 +53,10 @@ export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
 log "Version: $BRT_MARIAN_VERSION"
 
 # Get CMake settings from the --build-info option
-if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
-    echo "Error: Marian is too old as it does not have the required --build-info option"
-    exit 1
-fi
+#if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
+#    echo "Error: Marian is too old as it does not have the required --build-info option"
+#    exit 1
+#fi
 
 $BRT_MARIAN/app/marian-decoder-new --build-info all 2> $BRT_ROOT/cmake.log
 
