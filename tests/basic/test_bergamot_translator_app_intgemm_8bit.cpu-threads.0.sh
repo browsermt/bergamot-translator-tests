@@ -26,26 +26,26 @@ fi
 prefix=intgemm_8bit
 
 ARGS=(
-    -m $BRT_MODELS/deen/model.intgemm.alphas.bin
+    -m $BRT_MODELS/deen/ende.student.tiny11/model.intgemm.alphas.bin
     --vocabs 
-        $BRT_MODELS/deen/vocab.deen.spm 
-        $BRT_MODELS/deen/vocab.deen.spm
+        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
+        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
     --ssplit-mode paragraph
     --beam-size 1
     --skip-cost
-    --shortlist $BRT_MODELS/deen/lex.s2t.gz 50 50
+    --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t 50 50
     --int8shiftAlphaAll
     --cpu-threads 0
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
-    --quiet 
 )
 
 # Generate output specific to hardware.
 OUTFILE="bergamot.$prefix.$suffix.out"
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" > $OUTFILE
 
+#This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
 $BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$suffix.expected > $prefix.$suffix.diff
 exit 0

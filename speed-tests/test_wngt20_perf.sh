@@ -62,12 +62,12 @@ MINI_BATCH_WORDS=1024
 TAG="cpu.marian-decoder-new.${THREADS}"
 
 ARGS=(
-    -m $BRT_MODELS/deen/model.intgemm.alphas.bin 
-    --vocabs $BRT_MODELS/deen/vocab.deen.spm ${BRT_MODELS}/deen/vocab.deen.spm 
-    --beam-size 1 --skip-cost --shortlist ${BRT_MODELS}/deen/lex.s2t.gz 50 50 
-    --quiet --quiet-translation --int8shiftAlphaAll -w 128 
-    --max-length-break $MINI_BATCH_WORDS --mini-batch-words $MINI_BATCH_WORDS 
-    --ssplit-mode sentence --cpu-threads ${THREADS} 
+    -m $BRT_MODELS/deen/ende.student.tiny11/model.intgemm.alphas.bin
+    --vocabs $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm ${BRT_MODELS}/deen/ende.student.tiny11/vocab.deen.spm
+    --beam-size 1 --skip-cost --shortlist ${BRT_MODELS}/deen/ende.student.tiny11/lex.s2t 50 50
+    --quiet-translation --int8shiftAlphaAll -w 128
+    --max-length-break $MINI_BATCH_WORDS --mini-batch-words $MINI_BATCH_WORDS
+    --ssplit-mode sentence --cpu-threads ${THREADS}
     --log ${TAG}.log -o ${TAG}.translated.log
 )
 
