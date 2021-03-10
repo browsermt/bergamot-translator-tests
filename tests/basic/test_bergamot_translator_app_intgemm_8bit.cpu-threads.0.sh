@@ -43,8 +43,9 @@ ARGS=(
 
 # Generate output specific to hardware.
 OUTFILE="bergamot.$prefix.$suffix.out"
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" > $OUTFILE
 
+#This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
 $BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$suffix.expected > $prefix.$suffix.diff
 exit 0
