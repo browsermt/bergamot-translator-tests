@@ -1,7 +1,8 @@
 #!/bin/bash
 
 URL="http://data.statmt.org/bergamot/models/deen"
-FILE="ende.student.tiny11.tar.gz"
+MODEL="ende.student.tiny11"
+FILE="${MODEL}.tar.gz"
 OUTPUT_DIR="deen"
 
 mkdir -p ${OUTPUT_DIR}
@@ -9,8 +10,9 @@ mkdir -p ${OUTPUT_DIR}
 if [ -f "$FILE" ]; then
     echo "File ${FILE} already downloaded."
 else
+    echo "Downloading ${FILE}"
     wget --quiet --continue $URL/${FILE}
     tar xf $FILE -C $OUTPUT_DIR/
     # wasm build doesnt support zipped input 
-    ( cd models/deen/ende.student.tiny11 && gunzip lex.s2t.gz )
+    ( cd ${OUTPUT_DIR}/${MODEL} && gunzip -f lex.s2t.gz )
 fi
