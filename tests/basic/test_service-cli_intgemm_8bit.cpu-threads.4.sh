@@ -31,6 +31,7 @@ ARGS=(
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
     --ssplit-mode paragraph
+    --alignment soft
     --beam-size 1
     --skip-cost
     --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t 50 50
