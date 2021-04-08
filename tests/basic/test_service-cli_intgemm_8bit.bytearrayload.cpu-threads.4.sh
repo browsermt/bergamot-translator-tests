@@ -24,7 +24,6 @@ elif grep -q "ssse3" /proc/cpuinfo; then
 fi
 
 prefix=intgemm_8bit
-
 ARGS=(
     -m $BRT_MODELS/deen/ende.student.tiny11/model.intgemm.alphas.bin
     --vocabs 
@@ -33,7 +32,7 @@ ARGS=(
     --ssplit-mode paragraph
     --beam-size 1
     --skip-cost
-    --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t 50 50
+    --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t.bin 50 50
     --int8shiftAlphaAll
     --cpu-threads 4
     --max-length-break 1024
