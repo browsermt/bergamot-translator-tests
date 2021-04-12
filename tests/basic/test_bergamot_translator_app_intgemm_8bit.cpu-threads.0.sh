@@ -50,7 +50,7 @@ ARGS=(
 
 # Generate output specific to hardware.
 OUTFILE="bergamot.$prefix.$suffix.out"
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" > $OUTFILE
+${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
 
 #This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
