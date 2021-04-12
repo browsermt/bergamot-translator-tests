@@ -35,64 +35,46 @@ export BRT_MARIAN="$( realpath ${MARIAN:-$BRT_ROOT/../build} )"
 export BRT_MODELS=$BRT_ROOT/models
 export BRT_DATA=$BRT_ROOT/data
 
-BRT_CUSTOM=false
-
 
 export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
-if [ "$BRT_CUSTOM" = false ]; then
-    # Check if required tools are present in marian directory
-    for cmd in app/service-cli app/bergamot-translator-app; do
-        if [ ! -e $BRT_MARIAN/$cmd ]; then
-            echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
-            exit 1
-        fi
-    done
-
-    #log "Using Marian binary: $BRT_MARIAN/marian"
-
-    # Log Marian version
-    export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
-    log "Version: $BRT_MARIAN_VERSION"
-
-    # Get CMake settings from the --build-info option
-    if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
-        echo "Error: Marian is too old as it does not have the required --build-info option"
-        exit 1
-    fi
-else
-    # Check if required tools are present in marian directory
-    for cmd in app/bergamot-translator-app; do
-        if [ ! -e $BRT_MARIAN/$cmd ]; then
-            echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
-            exit 1
-        fi
-    done
-
-    # Log Marian version
-    export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot-translator-app --version 2>&1)
-    log "Version: $BRT_MARIAN_VERSION"
+# Check if required tools are present in marian directory
+if [ ! -e $BRT_MARIAN/app/bergamot-translator-app ]; then
+    echo "Error: '$BRT_MARIAN/app/bergamot-translator-app' not found. Do you need to compile the toolkit first?"
+    exit 1
 fi
 
-# $BRT_MARIAN/app/marian-decoder-new --build-info all 2> $BRT_ROOT/cmake.log
-# 
-# # Check Marian compilation settings
-# export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
-# export BRT_MARIAN_COMPILER=$(cat $BRT_ROOT/cmake.log          | grep "CMAKE_CXX_COMPILER=" | cut -f2 -d=)
-# export BRT_MARIAN_USE_MKL=$(cat $BRT_ROOT/cmake.log           | egrep "COMPILE_CPU=(ON|on|1)")
-# export BRT_MARIAN_USE_CUDA=$(cat $BRT_ROOT/cmake.log          | egrep "COMPILE_CUDA=(ON|on|1)")
-# export BRT_MARIAN_USE_CUDNN=$(cat $BRT_ROOT/cmake.log         | egrep "USE_CUDNN=(ON|on|1)")
-# export BRT_MARIAN_USE_SENTENCEPIECE=$(cat $BRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE=(ON|on|1)")
-# export BRT_MARIAN_USE_FBGEMM=$(cat $BRT_ROOT/cmake.log        | egrep "USE_FBGEMM=(ON|on|1)")
-# export BRT_MARIAN_USE_UNITTESTS=$(cat $BRT_ROOT/cmake.log     | egrep "COMPILE_TESTS=(ON|on|1)")
-# 
-# log "Build type: $BRT_MARIAN_BUILD_TYPE"
-# log "Using compiler: $BRT_MARIAN_COMPILER"
-# log "Using MKL: $BRT_MARIAN_USE_MKL"
-# log "Using CUDNN: $BRT_MARIAN_USE_CUDNN"
-# log "Using SentencePiece: $BRT_MARIAN_USE_SENTENCEPIECE"
-# log "Using FBGEMM: $BRT_MARIAN_USE_FBGEMM"
-# log "Unit tests: $BRT_MARIAN_USE_UNITTESTS"
+#log "Using Marian binary: $BRT_MARIAN/marian"
+
+# Log Marian version
+export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot-translator-app --version 2>&1)
+log "Version: $BRT_MARIAN_VERSION"
+
+# Get CMake settings from the --build-info option
+if ! grep -q "build-info" < <( $BRT_MARIAN/app/bergamot-translator-app --help ); then
+    echo "Error: Marian is too old as it does not have the required --build-info option"
+    exit 1
+fi
+
+$BRT_MARIAN/app/bergamot-translator-app --build-info all 2> $BRT_ROOT/cmake.log
+
+# Check Marian compilation settings
+export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
+export BRT_MARIAN_COMPILER=$(cat $BRT_ROOT/cmake.log          | grep "CMAKE_CXX_COMPILER=" | cut -f2 -d=)
+export BRT_MARIAN_USE_MKL=$(cat $BRT_ROOT/cmake.log           | egrep "COMPILE_CPU=(ON|on|1)")
+export BRT_MARIAN_USE_CUDA=$(cat $BRT_ROOT/cmake.log          | egrep "COMPILE_CUDA=(ON|on|1)")
+export BRT_MARIAN_USE_CUDNN=$(cat $BRT_ROOT/cmake.log         | egrep "USE_CUDNN=(ON|on|1)")
+export BRT_MARIAN_USE_SENTENCEPIECE=$(cat $BRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE=(ON|on|1)")
+export BRT_MARIAN_USE_FBGEMM=$(cat $BRT_ROOT/cmake.log        | egrep "USE_FBGEMM=(ON|on|1)")
+export BRT_MARIAN_USE_UNITTESTS=$(cat $BRT_ROOT/cmake.log     | egrep "COMPILE_TESTS=(ON|on|1)")
+
+log "Build type: $BRT_MARIAN_BUILD_TYPE"
+log "Using compiler: $BRT_MARIAN_COMPILER"
+log "Using MKL: $BRT_MARIAN_USE_MKL"
+log "Using CUDNN: $BRT_MARIAN_USE_CUDNN"
+log "Using SentencePiece: $BRT_MARIAN_USE_SENTENCEPIECE"
+log "Using FBGEMM: $BRT_MARIAN_USE_FBGEMM"
+log "Unit tests: $BRT_MARIAN_USE_UNITTESTS"
 export BRT_MARIAN_USE_MKL=on # hardcode
 
 # Number of available devices
