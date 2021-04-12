@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #####################################################################
-# SUMMARY: Run tests for bergamot-translator-app
+# SUMMARY: Run tests for service-cli
 # AUTHOR: jerinphilip 
-# TAGS: vanilla
+# TAGS: full
 #####################################################################
 
 set -eo pipefail;
