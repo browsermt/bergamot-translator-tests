@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#####################################################################
-# SUMMARY: Run tests for bergamot-translator-app
-# AUTHOR: jerinphilip 
-# TAGS: wasm, native, vanilla
-#####################################################################
-
-
 set -eo pipefail;
 
 # Skip if requirements are not met
@@ -49,8 +42,8 @@ ARGS=(
 )
 
 # Generate output specific to hardware.
-OUTFILE="bergamot.$prefix.$suffix.out"
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" > $OUTFILE
+OUTFILE="bergamot-bytearray.$prefix.$suffix.out"
+${BRT_MARIAN}/app/bergamot-translator-app-bytearray "${ARGS[@]}" > $OUTFILE
 
 #This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.

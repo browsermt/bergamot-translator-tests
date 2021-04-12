@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#####################################################################
-# SUMMARY: Run tests for bergamot-translator-app
-# AUTHOR: jerinphilip 
-# TAGS: wasm, native, vanilla
-#####################################################################
-
-
 set -eo pipefail;
 
 # Skip if requirements are not met
@@ -42,17 +35,16 @@ ARGS=(
     --skip-cost
     --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t 50 50
     --int8shiftAlphaAll
-    --cpu-threads 0
+    --cpu-threads 4
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
 )
 
 # Generate output specific to hardware.
-OUTFILE="bergamot.$prefix.$suffix.out"
-${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" > $OUTFILE
+OUTFILE="service-cli-bytearray.$prefix.$suffix.out"
+${BRT_MARIAN}/app/service-cli-bytearray "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
 
-#This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$suffix.expected > $prefix.$suffix.diff
+$BRT_TOOLS/diff.sh $OUTFILE service-cli.$prefix.$suffix.expected > $prefix.$suffix.diff
 exit 0

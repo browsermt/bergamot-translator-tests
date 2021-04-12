@@ -17,7 +17,7 @@ mkdir -p ${OUTPUT_DIR};
 for FILE in ${XZ_FILES[@]}
 do
     if test -f "${OUTPUT_DIR}/${FILE}"; then
-      echo "File exists, not redownloading";
+      echo "File ${OUTPUT_DIR}/${FILE} exists, not redownloading";
     else
       wget --quiet --continue "${URL}/${FILE}.xz" -P ${OUTPUT_DIR}
       echo "Extracting ${FILE}.xz" && unxz ${OUTPUT_DIR}/${FILE}.xz
