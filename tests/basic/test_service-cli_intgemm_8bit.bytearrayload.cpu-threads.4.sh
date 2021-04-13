@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: service-cli with bytearray load capabilities
+# AUTHOR: jerinphilip 
+# TAGS: full
+#####################################################################
+
 set -eo pipefail;
 
 # Skip if requirements are not met
