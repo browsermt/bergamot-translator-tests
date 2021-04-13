@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: Run tests for service-cli
+# AUTHOR: jerinphilip 
+# TAGS: full
+#####################################################################
+
 set -eo pipefail;
 
 # Skip if requirements are not met

@@ -39,26 +39,24 @@ export BRT_DATA=$BRT_ROOT/data
 export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
 # Check if required tools are present in marian directory
-for cmd in app/service-cli app/bergamot-translator-app; do
-    if [ ! -e $BRT_MARIAN/$cmd ]; then
-        echo "Error: '$BRT_MARIAN/$cmd' not found. Do you need to compile the toolkit first?"
-        exit 1
-    fi
-done
+if [ ! -e $BRT_MARIAN/app/bergamot-translator-app ]; then
+    echo "Error: '$BRT_MARIAN/app/bergamot-translator-app' not found. Do you need to compile the toolkit first?"
+    exit 1
+fi
 
-log "Using Marian binary: $BRT_MARIAN/marian"
+#log "Using Marian binary: $BRT_MARIAN/marian"
 
 # Log Marian version
-export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/marian-decoder-new --version 2>&1)
+export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot-translator-app --version 2>&1)
 log "Version: $BRT_MARIAN_VERSION"
 
 # Get CMake settings from the --build-info option
-#if ! grep -q "build-info" < <( $BRT_MARIAN/app/marian-decoder-new --help ); then
-#    echo "Error: Marian is too old as it does not have the required --build-info option"
-#    exit 1
-#fi
+if ! grep -q "build-info" < <( $BRT_MARIAN/app/bergamot-translator-app --help ); then
+    echo "Error: Marian is too old as it does not have the required --build-info option"
+    exit 1
+fi
 
-$BRT_MARIAN/app/marian-decoder-new --build-info all 2> $BRT_ROOT/cmake.log
+$BRT_MARIAN/app/bergamot-translator-app --build-info all 2> $BRT_ROOT/cmake.log
 
 # Check Marian compilation settings
 export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
@@ -77,13 +75,14 @@ log "Using CUDNN: $BRT_MARIAN_USE_CUDNN"
 log "Using SentencePiece: $BRT_MARIAN_USE_SENTENCEPIECE"
 log "Using FBGEMM: $BRT_MARIAN_USE_FBGEMM"
 log "Unit tests: $BRT_MARIAN_USE_UNITTESTS"
+export BRT_MARIAN_USE_MKL=on # hardcode
 
 # Number of available devices
-cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
-export BRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
+# cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
+# export BRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
 
-log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
-log "Using number of GPU devices: $BRT_NUM_DEVICES"
+# log "Using CUDA visible devices: $CUDA_VISIBLE_DEVICES"
+# log "Using number of GPU devices: $BRT_NUM_DEVICES"
 
 export BRT_TIMEOUT=${TIMEOUT:-5m}   # the default time out is 5 minutes, see `man timeout`
 cmd_timeout=""

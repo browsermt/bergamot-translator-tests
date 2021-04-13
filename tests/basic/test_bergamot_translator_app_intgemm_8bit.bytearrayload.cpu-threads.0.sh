@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#####################################################################
+# SUMMARY: bergamot-translator-app with bytearray load capabilities
+# AUTHOR: jerinphilip 
+# TAGS: wasm, full
+#####################################################################
+
 set -eo pipefail;
 
 # Skip if requirements are not met
