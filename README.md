@@ -3,7 +3,7 @@ Marian regression tests
 
 The template for this repository is borrowed from the
 [marian-regression-tests](https://github.com/marian-nmt/marian-regression-tests/)
-repository.
+repository. 
 
 <b>Marian</b> is an efficient Neural Machine Translation framework written in
 pure C++ with minimal dependencies. <b>Bergamot</b> project involves using marian to
@@ -12,7 +12,7 @@ bring machine-translation to the client side.
 This repository contains the regression test framework for the main development
 repository: https://github.com/browsermt/bergamot-translator.
 
-Tests have been developed for Linux for Marian compiled using GCC 7+.
+Tests have been developed for Linux for Marian compiled using GCC 8+.
 
 Note: GPU tests are not functional at the moment.
 
@@ -41,7 +41,7 @@ Downloading required data and tools:
 
 Running regression tests:
 
-    MARIAN=/path/to/marian-dev/build ./run_brt.sh
+    MARIAN=/path/to/bergamot-translator/build ./run_brt.sh
 
 Enabling multi-GPU tests:
 
@@ -113,26 +113,34 @@ Please follow these recommendations:
   as small as possible, and contact me (Roman) to upload it into our storage
 
 
-## Jenkins
+## Continuous Integration
 
-The regression tests are run automatically on Jenkins after each push to the
-master branch and a successful compilation with GCC 8.4.0 and CUDA
-10.1.243: http://vali.inf.ed.ac.uk/jenkins/view/marian/
+The regression tests are run automatically on GitHub CI on pull-request against
+or push to main at
+[browsermt/bergamot-translator](https://github.com/browsermt/bergamot-translator).
 
-On Jenkins, Marian is compiled using the following commands:
+There are several variations supporting two platforms of builds. Keeping
+platform differences aside, there is a single-threaded path allowing compiling
+bergamot-translator targetting WASM for purposes of a local browser extension,
+and a multithreaded path allowing for usage locally maximizing efficiency.
+If build succeeds, created executables are used to run regression tests.
 
-    CC=/usr/bin/gcc-8 CXX=/usr/bin/g++-8 CUDAHOSTCXX=/usr/bin/g++8 \
-    cmake -DUSE_SENTENCEPIECE=ON -DUSE_FBGEMM=on \
-        -DCOMPILE_CPU=on -DCOMPILE_TESTS=ON -DCOMPILE_EXAMPLES=ON \
-        -DCUDA_TOOLKIT_ROOT_DIR=/var/lib/jenkins/cuda-10.1 ..
-    make -j
-    make test
+Please refer to the
+[bergamot-translator](https://github.com/browsermt/bergamot-translator)
+repository, or workflow files on instructions to build for each path.
 
-This compilation command allows to build Marian that is needed to test
-majority of regression tests (only few might be skipped due to requirements
-for specific CPU architectures).
+In this repository, tests capable to run in these modes are filed using tags. 
 
-If this succeeds, created executables are used to run regression tests.
+```bash
+# To run only test test-apps in the WASM path 
+BRT_MARIAN=../build ./run_brt.sh '#wasm'
+
+# To run tests on full path with multithreading etc.
+# Do not specify any tags
+BRT_MARIAN=../build ./run_brt.sh 
+```
+
+When adding a test to this repository, please place tags accordingly.
 
 ## Data storage
 
