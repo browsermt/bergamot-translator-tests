@@ -1,0 +1,167 @@
+[original]: The Bergamot project will add and improve client-side machine translation in a web browser. Unlike current cloud-based options, running directly on users' machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality. Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually. Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.
+
+[translated]: Das Bergamot-Projekt wird die Übersetzung der Client-Seite der Maschine in einem Webbrowser ergänzen und verbessern. Im Gegensatz zu den derzeitigen Cloud-basierten Optionen befähigt dies den Bürgern, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in verschiedenen Sektoren, die Vertraulichkeit erfordern. Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Akzeptanz von unten nach oben durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die andernfalls Übersetzungen beschaffen oder einsprachig arbeiten würden. Bergamot ist ein Konsortium, das von der Universität Edinburgh mit den Partnern Charles University in Prag, der University of Sheffield, der University of Tartu und Mozilla koordiniert wird.
+ [src Sentence]: The Bergamot project will add and improve client-side machine translation in a web browser.
+ [tgt Sentence]: Das Bergamot-Projekt wird die Übersetzung der Client-Seite der Maschine in einem Webbrowser ergänzen und verbessern.
+Alignments
+The: Das(0.975687) 
+ Bergamo:  Bergamo(0.476279) 
+t: t(0.987646) 
+ project:  Bergamo(0.502502) -(0.783822) Projekt(0.996571) 
+ will:  wird(0.862176) 
+ add:  die(0.270578)  ergänzen(0.438255) 
+ and:  und(0.909725) 
+ improve:  verbessern(0.797354) 
+ client:  die(0.243284)  Übersetzung(0.291396)  Client(0.822839)  Maschine(0.445128) 
+-: -(0.920415)  der(0.31701) 
+side: Seite(0.840153) 
+ machine:  Maschine(0.48539) 
+ translation:  Übersetzung(0.528865) 
+ in:  der(0.371188)  in(0.566114) 
+ a:  einem(0.951878) 
+ web:  Web(0.97112) browser(0.41262) 
+ browser: browser(0.586051) 
+.: .(0.946167) 
+Quality: whole(432.28), tokens below:
+Das(18.8419)  Bergamo(19.0694) t(24.6029) -(17.2082) Projekt(27.0886)  wird(18.6093)  die(18.0491)  Übersetzung(14.2927)  der(16.4727)  Client(15.5792) -(16.3975) Seite(16.6901)  der(14.1972)  Maschine(15.3313)  in(16.2605)  einem(17.9892)  Web(20.0666) browser(23.437)  ergänzen(17.3633)  und(21.1103)  verbessern(20.793) .(23.3825)
+ [src Sentence]: Unlike current cloud-based options, running directly on users' machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality.
+ [tgt Sentence]: Im Gegensatz zu den derzeitigen Cloud-basierten Optionen befähigt dies den Bürgern, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in verschiedenen Sektoren, die Vertraulichkeit erfordern.
+Alignments
+Unlike: Im(0.99647)  Gegensatz(0.994356)  zu(0.940404) 
+ current:  den(0.942146)  derzeitigen(0.936104) 
+ cloud:  Cloud(0.656663) 
+-: -(0.977022) 
+based: basierten(0.843096) 
+ options:  Optionen(0.86465) 
+,:  die(0.351236)  den(0.21545) 
+ running:  die(0.23088) s(0.570815) 
+ directly:  den(0.29608) ,(0.347938)  ihre(0.314175) 
+ on: 
+ users: 
+': 
+ machines: 
+ empower:  be(0.715917) fähig(0.948776) t(0.357389) 
+s: t(0.521793) 
+ citizens:  den(0.201369)  Bürgern(0.748467) 
+ to:  zu(0.78003) 
+ preserve:  bewahren(0.911736) 
+ their:  ihre(0.425188) 
+ privacy:  Privatsphäre(0.978361) 
+ and:  und(0.763929) 
+ increases:  erhöht(0.645531) 
+ the:  die(0.658101) 
+ up: 
+take:  Verbreitung(0.785121) 
+ of:  von(0.698625) 
+ language:  Sprach(0.855163) 
+ technologies: technologien(0.933745) 
+ in:  in(0.861963) 
+ Europe:  verschiedenen(0.329213) 
+ in: 
+ various:  verschiedenen(0.642996) 
+ sectors:  Sektoren(0.974322) 
+ that: ,(0.616463)  die(0.778878) 
+ require:  erfordern(0.844585) 
+ confidential:  Ver(0.72208) tra(0.93246) u(0.963477) lichkeit(0.472406) 
+ity: lichkeit(0.526842) 
+.: .(0.922062) 
+Quality: whole(836.185), tokens below:
+Im(20.1102)  Gegensatz(24.2434)  zu(25.9612)  den(18.9242)  derzeitigen(16.4249)  Cloud(18.6478) -(20.0826) basierten(22.5831)  Optionen(19.5083)  be(13.9965) fähig(27.0191) t(21.5929)  die(15.2607) s(13.4202)  den(12.7861)  Bürgern(20.3203) ,(17.2504)  ihre(15.6132)  Privatsphäre(22.4419)  zu(20.6568)  bewahren(26.7123)  und(19.2876)  erhöht(16.697)  die(17.7312)  Verbreitung(17.3964)  von(18.4724)  Sprach(20.0797) technologien(28.0984)  in(19.0651)  verschiedenen(18.7624)  Sektoren(21.5786) ,(20.4526)  die(20.6398)  Ver(16.1643) tra(33.2263) u(37.8699) lichkeit(33.6651)  erfordern(21.4313) .(22.7346)
+ [src Sentence]: Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually.
+ [tgt Sentence]: Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Akzeptanz von unten nach oben durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die andernfalls Übersetzungen beschaffen oder einsprachig arbeiten würden.
+Alignments
+Free: Freie(0.94578) 
+ software:  Software(0.92247) 
+ integrated: ,(0.461759)  die(0.212627)  wie(0.47464)  integriert(0.855411) 
+ with: ,(0.356271)  mit(0.939985) 
+ an:  die(0.285421)  einem(0.920394) 
+ open:  Open(0.700946) 
+-: -(0.966605) -(0.97295) 
+source: Source(0.977997) 
+ web: Web(0.956705) 
+ browser: browser(0.850214) 
+,: 
+ such: 
+ as:  wie(0.353174) 
+ Mozilla:  Mozilla(0.926762) 
+ Firefox:  Firefox(0.966958) 
+,: ,(0.661672) 
+ will:  wird(0.457387) 
+ enable:  wird(0.477875)  ermöglichen(0.68115) 
+ bottom:  die(0.432979)  Akzeptanz(0.380568)  von(0.283977)  unten(0.714137)  oben(0.445925) 
+-:  nach(0.450549) 
+up:  nach(0.296888)  oben(0.444164) 
+ adoption:  Akzeptanz(0.535211) 
+ by:  von(0.57119)  durch(0.84924) 
+ non:  unten(0.238211)  Nicht(0.757977) 
+-: -(0.945782) 
+expert: Ex(0.9972) per(0.997533) ten(0.991245) 
+s: 
+,: ,(0.895818) 
+ result:  was(0.680161)  zu(0.231462) 
+ing:  was(0.203108) 
+ in: 
+ cost:  zu(0.437411)  Kosten(0.95812) 
+ savings: ein(0.953287) spar(0.989194) ungen(0.91946) 
+ for:  für(0.975881) 
+ private:  private(0.849108) 
+ and:  und(0.855221) 
+ public:  öffentliche(0.892202) 
+ sector:  führt(0.428704) ,(0.259728) 
+ users:  Nutzer(0.82468)  führt(0.202292) 
+ who: ,(0.38791)  die(0.927916) 
+ would:  würden(0.601521) 
+ otherwise:  and(0.783941) ern(0.965185) falls(0.997367) 
+ pro:  be(0.390474) schaffen(0.2171) 
+cur:  be(0.432707) schaffen(0.725559) 
+e: 
+ translation:  Übersetzungen(0.593299) 
+ or:  oder(0.811998) 
+ operate:  arbeiten(0.581233) 
+ mono:  ein(0.57369) sprachig(0.522498) 
+ling: 
+ual: sprachig(0.241879) 
+ly:  ein(0.232766) 
+.:  würden(0.264106) .(0.964623) 
+Quality: whole(1382.35), tokens below:
+Freie(19.9769)  Software(20.2673) ,(17.4817)  die(21.403)  mit(19.6636)  einem(20.4212)  Open(19.269) -(22.1275) Source(32.6237) -(20.7025) Web(27.3956) browser(25.331)  wie(16.6485)  Mozilla(21.9942)  Firefox(21.5747)  integriert(21.1199)  ist(26.4735) ,(24.9519)  wird(18.6295)  die(17.1909)  Akzeptanz(15.1518)  von(18.0657)  unten(16.9822)  nach(17.4216)  oben(26.9837)  durch(20.3203)  Nicht(18.6849) -(22.5958) Ex(34.1501) per(31.0391) ten(35.5078)  ermöglichen(22.364) ,(21.5757)  was(24.4561)  zu(22.838)  Kosten(25.6302) ein(27.1686) spar(34.0033) ungen(34.311)  für(22.2)  private(20.2261)  und(21.2794)  öffentliche(22.6696)  Nutzer(23.1858)  führt(20.5403) ,(23.3306)  die(24.4221)  and(18.0311) ern(34.6552) falls(35.9828)  Übersetzungen(15.6031)  be(23.2034) schaffen(27.6504)  oder(23.9851)  ein(15.4883) sprachig(17.3273)  arbeiten(18.6898)  würden(22.9716) .(25.5245)
+ [src Sentence]: Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.
+ [tgt Sentence]: Bergamot ist ein Konsortium, das von der Universität Edinburgh mit den Partnern Charles University in Prag, der University of Sheffield, der University of Tartu und Mozilla koordiniert wird.
+Alignments
+Bergamo: Bergamo(0.997037) 
+t: t(0.961948) 
+ is:  ist(0.898241) 
+ a:  ein(0.906273) 
+ consortium:  Kon(0.948069) sort(0.99816) ium(0.867626) 
+ coordinated: ,(0.272833)  mit(0.20906)  koordiniert(0.725306) 
+ by:  von(0.788475) 
+ the: ,(0.22378)  das(0.576386)  der(0.945598) 
+ University:  Universität(0.974249) 
+ of: 
+ Edinburgh:  Edinburgh(0.834117) 
+ with:  mit(0.702164) 
+ partners:  den(0.548996)  Partnern(0.958296) 
+ Charles:  Charles(0.767597) 
+ University:  University(0.926762) 
+ in:  in(0.925589) 
+ Prague:  Prag(0.991189) 
+,: ,(0.881609) 
+ the:  der(0.847655) 
+ University:  University(0.977881)  of(0.3768) 
+ of:  of(0.506611) 
+ She:  She(0.947468) 
+f: f(0.986869) 
+field: field(0.999222) 
+,: ,(0.931108) 
+ University:  der(0.704563)  University(0.929241)  of(0.536978) 
+ of:  of(0.273746) 
+ Tar:  Tar(0.94824) 
+tu: tu(0.981117) 
+,: 
+ and:  und(0.735172) 
+ Mozilla:  Mozilla(0.898962) 
+.:  wird(0.684922) .(0.988384) 
+Quality: whole(969.851), tokens below:
+Bergamo(21.4008) t(29.0834)  ist(21.383)  ein(21.061)  Kon(20.0295) sort(37.5403) ium(32.0339) ,(18.2847)  das(24.0486)  von(21.778)  der(23.7752)  Universität(24.2733)  Edinburgh(24.7428)  mit(20.0458)  den(21.6645)  Partnern(23.9358)  Charles(17.0325)  University(24.6819)  in(22.3246)  Prag(26.5436) ,(21.8546)  der(20.8931)  University(25.531)  of(26.2607)  She(32.095) f(32.5515) field(42.0165) ,(20.4855)  der(20.2676)  University(26.0405)  of(26.868)  Tar(28.3082) tu(30.2264)  und(20.2353)  Mozilla(23.0068)  koordiniert(21.415)  wird(27.0823) .(27.4499)
+--------------------------
+
