@@ -61,7 +61,7 @@ $BRT_MARIAN/app/bergamot-translator-app --build-info all 2> $BRT_ROOT/cmake.log
 # Check Marian compilation settings
 export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
 export BRT_MARIAN_COMPILER=$(cat $BRT_ROOT/cmake.log          | grep "CMAKE_CXX_COMPILER=" | cut -f2 -d=)
-export BRT_MARIAN_USE_MKL=$(cat $BRT_ROOT/cmake.log           | egrep "COMPILE_CPU=(ON|on|1)")
+export BRT_MARIAN_USE_MKL=$(cat $BRT_ROOT/cmake.log           | egrep "USE_MKL=(ON|on|1)")
 export BRT_MARIAN_USE_CUDA=$(cat $BRT_ROOT/cmake.log          | egrep "COMPILE_CUDA=(ON|on|1)")
 export BRT_MARIAN_USE_CUDNN=$(cat $BRT_ROOT/cmake.log         | egrep "USE_CUDNN=(ON|on|1)")
 export BRT_MARIAN_USE_SENTENCEPIECE=$(cat $BRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE=(ON|on|1)")
