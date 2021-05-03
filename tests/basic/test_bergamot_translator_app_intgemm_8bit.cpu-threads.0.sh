@@ -9,27 +9,7 @@
 
 set -eo pipefail;
 
-# Skip if requirements are not met
-if [ ! $BRT_MARIAN_USE_MKL ]; then
-    echo "Bergamot translator is not compiled with CPU" 1>&2
-    exit 100
-elif ! grep -q -e "avx" -e "ssse3" /proc/cpuinfo ; then
-    echo "Your CPU does not support AVX or SSSE3, which is required" 1>&2
-    exit 100
-fi
-
-# Outputs differ on CPUs supporting AVX AVX2 or AVX512
-suffix=avx
-if grep -q "avx512_vnni" /proc/cpuinfo; then
-    suffix=avx512_vnni
-elif grep -q "avx512" /proc/cpuinfo; then
-    suffix=avx512
-elif grep -q "avx2" /proc/cpuinfo; then
-    suffix=avx2
-elif grep -q "ssse3" /proc/cpuinfo; then
-    suffix=ssse3
-fi
-
+BRT_INSTRUCTION=$( $BRT_TOOLS/detect-instruction.sh )
 prefix=intgemm_8bit
 
 ARGS=(
@@ -49,10 +29,10 @@ ARGS=(
 )
 
 # Generate output specific to hardware.
-OUTFILE="bergamot.$prefix.$suffix.out"
+OUTFILE="bergamot.$prefix.$BRT_INSTRUCTION.out"
 ${BRT_MARIAN}/app/bergamot-translator-app "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
 
 #This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$suffix.expected > $prefix.$suffix.diff
+$BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
 exit 0

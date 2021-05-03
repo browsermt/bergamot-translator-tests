@@ -2,6 +2,7 @@ THREADS=16
 
 GIT_MOSES_SCRIPTS=http://github.com/marian-nmt/moses-scripts.git
 GIT_SUBWORD_NMT=http://github.com/rsennrich/subword-nmt.git
+GIT_CPU_FEATURES=https://github.com/google/cpu_features.git
 
 # Empty value means that all data and models will be downloaded
 TARBALLS=
@@ -21,6 +22,10 @@ tools: pip
 	mkdir -p $@
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull   || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
+	(git -C $@/cpu-features pull || git clone $(GIT_CPU_FEATURES) $@/cpu-features) \
+			&& mkdir -p $@/cpu-features/build \
+			&& cd $@/cpu-features/build \
+			&& cmake .. && make -j2
 
 pip: requirements.txt
 	python3 -m pip install --user -r $<
