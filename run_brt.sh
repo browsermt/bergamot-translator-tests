@@ -67,6 +67,7 @@ export BRT_MARIAN_USE_CUDNN=$(cat $BRT_ROOT/cmake.log         | egrep "USE_CUDNN
 export BRT_MARIAN_USE_SENTENCEPIECE=$(cat $BRT_ROOT/cmake.log | egrep "USE_SENTENCEPIECE=(ON|on|1)")
 export BRT_MARIAN_USE_FBGEMM=$(cat $BRT_ROOT/cmake.log        | egrep "USE_FBGEMM=(ON|on|1)")
 export BRT_MARIAN_USE_UNITTESTS=$(cat $BRT_ROOT/cmake.log     | egrep "COMPILE_TESTS=(ON|on|1)")
+export BRT_MARIAN_MKL_FOUND=$(cat $BRT_ROOT/cmake.log         | egrep "MKL_ROOT=" | cut -f2 -d=)
 
 log "Build type: $BRT_MARIAN_BUILD_TYPE"
 log "Using compiler: $BRT_MARIAN_COMPILER"
