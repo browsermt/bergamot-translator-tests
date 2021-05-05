@@ -16,7 +16,7 @@ ARGS=(
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
     --ssplit-mode paragraph
-    --bytearray
+    --check-bytearray true
     --alignment soft
     --beam-size 1
     --skip-cost
