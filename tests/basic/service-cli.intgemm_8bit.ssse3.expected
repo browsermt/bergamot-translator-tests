@@ -1,6 +1,21 @@
-[original]: The Bergamot project will add and improve client-side machine translation in a web browser. Unlike current cloud-based options, running directly on users' machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality. Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually. Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.
+[original]:     The Bergamot project will add and improve client-side machine translation in a web browser.
 
-[translated]: Das Bergamot-Projekt wird die Übersetzung der Client-Seite der Maschine in einem Webbrowser ergänzen und verbessern. Im Gegensatz zu den derzeitigen Cloud-basierten Optionen befähigt dies den Bürgern, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in verschiedenen Sektoren, die Vertraulichkeit erfordern. Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Akzeptanz von unten nach oben durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die andernfalls Übersetzungen beschaffen oder einsprachig arbeiten würden. Bergamot ist ein Konsortium, das von der Universität Edinburgh mit den Partnern Charles University in Prag, der University of Sheffield, der University of Tartu und Mozilla koordiniert wird.
+    Unlike current cloud-based options, running directly on users’ machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality. Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually.
+
+    Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.
+
+
+
+
+[translated]:     Das Bergamot-Projekt wird die Übersetzung der Client-Seite der Maschine in einem Webbrowser ergänzen und verbessern.
+
+    Im Gegensatz zu aktuellen Cloud-basierten Optionen, die direkt auf den Rechnern der Nutzer laufen, die Bürgerinnen und Bürger, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in Europa in verschiedenen Sektoren, die Vertraulichkeit erfordern. Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Akzeptanz von unten nach oben durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die andernfalls Übersetzungen beschaffen oder einsprachig arbeiten würden.
+
+    Bergamot ist ein Konsortium, das von der Universität Edinburgh mit den Partnern Charles University in Prag, der University of Sheffield, der University of Tartu und Mozilla koordiniert wird.
+
+
+
+
  [src Sentence]: The Bergamot project will add and improve client-side machine translation in a web browser.
  [tgt Sentence]: Das Bergamot-Projekt wird die Übersetzung der Client-Seite der Maschine in einem Webbrowser ergänzen und verbessern.
 Alignments
@@ -24,49 +39,49 @@ side: Seite(0.840153)
 .: .(0.946167) 
 Quality: whole(432.28), tokens below:
 Das(18.8419)  Bergamo(19.0694) t(24.6029) -(17.2082) Projekt(27.0886)  wird(18.6093)  die(18.0491)  Übersetzung(14.2927)  der(16.4727)  Client(15.5792) -(16.3975) Seite(16.6901)  der(14.1972)  Maschine(15.3313)  in(16.2605)  einem(17.9892)  Web(20.0666) browser(23.437)  ergänzen(17.3633)  und(21.1103)  verbessern(20.793) .(23.3825)
- [src Sentence]: Unlike current cloud-based options, running directly on users' machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality.
- [tgt Sentence]: Im Gegensatz zu den derzeitigen Cloud-basierten Optionen befähigt dies den Bürgern, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in verschiedenen Sektoren, die Vertraulichkeit erfordern.
+ [src Sentence]: Unlike current cloud-based options, running directly on users’ machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality.
+ [tgt Sentence]: Im Gegensatz zu aktuellen Cloud-basierten Optionen, die direkt auf den Rechnern der Nutzer laufen, die Bürgerinnen und Bürger, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in Europa in verschiedenen Sektoren, die Vertraulichkeit erfordern.
 Alignments
-Unlike: Im(0.99647)  Gegensatz(0.994356)  zu(0.940404) 
- current:  den(0.942146)  derzeitigen(0.936104) 
- cloud:  Cloud(0.656663) 
--: -(0.977022) 
-based: basierten(0.843096) 
- options:  Optionen(0.86465) 
-,:  die(0.351236)  den(0.21545) 
- running:  die(0.23088) s(0.570815) 
- directly:  den(0.29608) ,(0.347938)  ihre(0.314175) 
- on: 
- users: 
-': 
- machines: 
- empower:  be(0.715917) fähig(0.948776) t(0.357389) 
-s: t(0.521793) 
- citizens:  den(0.201369)  Bürgern(0.748467) 
- to:  zu(0.78003) 
- preserve:  bewahren(0.911736) 
- their:  ihre(0.425188) 
- privacy:  Privatsphäre(0.978361) 
- and:  und(0.763929) 
- increases:  erhöht(0.645531) 
- the:  die(0.658101) 
- up: 
-take:  Verbreitung(0.785121) 
- of:  von(0.698625) 
- language:  Sprach(0.855163) 
- technologies: technologien(0.933745) 
- in:  in(0.861963) 
- Europe:  verschiedenen(0.329213) 
- in: 
- various:  verschiedenen(0.642996) 
- sectors:  Sektoren(0.974322) 
- that: ,(0.616463)  die(0.778878) 
- require:  erfordern(0.844585) 
- confidential:  Ver(0.72208) tra(0.93246) u(0.963477) lichkeit(0.472406) 
-ity: lichkeit(0.526842) 
-.: .(0.922062) 
-Quality: whole(836.185), tokens below:
-Im(20.1102)  Gegensatz(24.2434)  zu(25.9612)  den(18.9242)  derzeitigen(16.4249)  Cloud(18.6478) -(20.0826) basierten(22.5831)  Optionen(19.5083)  be(13.9965) fähig(27.0191) t(21.5929)  die(15.2607) s(13.4202)  den(12.7861)  Bürgern(20.3203) ,(17.2504)  ihre(15.6132)  Privatsphäre(22.4419)  zu(20.6568)  bewahren(26.7123)  und(19.2876)  erhöht(16.697)  die(17.7312)  Verbreitung(17.3964)  von(18.4724)  Sprach(20.0797) technologien(28.0984)  in(19.0651)  verschiedenen(18.7624)  Sektoren(21.5786) ,(20.4526)  die(20.6398)  Ver(16.1643) tra(33.2263) u(37.8699) lichkeit(33.6651)  erfordern(21.4313) .(22.7346)
+Unlike: Im(0.994819)  Gegensatz(0.995874)  zu(0.866975) 
+ current:  aktuellen(0.903863) 
+ cloud:  Cloud(0.826103) 
+-: -(0.977985) 
+based: basierten(0.885261) 
+ options:  Optionen(0.789921) 
+,: 
+ running:  laufen(0.423382) 
+ directly:  direkt(0.841412) 
+ on:  auf(0.828813) 
+ users:  den(0.534144)  Rechner(0.299294) n(0.324006)  Nutzer(0.936953) 
+’: n(0.30546)  der(0.339796) 
+ machines:  den(0.286412)  Rechner(0.682577) n(0.284736) ,(0.235767) 
+ empower: ,(0.820387)  die(0.412703)  die(0.685879) innen(0.442279)  und(0.526372) ,(0.484093)  ihre(0.240918) 
+s: 
+ citizens:  Bürger(0.746387)  Bürger(0.566545) 
+ to: innen(0.311591)  und(0.227727) ,(0.281931)  zu(0.711184) 
+ preserve:  bewahren(0.942526) 
+ their:  ihre(0.488859) 
+ privacy:  Privatsphäre(0.976605) 
+ and:  und(0.733903) 
+ increases:  erhöht(0.836169) 
+ the:  die(0.813517) 
+ up:  Verbreitung(0.200861) 
+take:  Verbreitung(0.772431) 
+ of:  von(0.781198) 
+ language:  Sprach(0.936589) 
+ technologies: technologien(0.93138) 
+ in:  in(0.946064) 
+ Europe:  Europa(0.661261) 
+ in:  in(0.936251) 
+ various:  Europa(0.316163)  verschiedenen(0.934462) 
+ sectors:  Sektoren(0.990146) 
+ that: ,(0.725027)  die(0.883021) 
+ require:  erfordern(0.863882) 
+ confidential:  Ver(0.776896) tra(0.964804) u(0.97988) lichkeit(0.389975) 
+ity: lichkeit(0.609788) 
+.: .(0.956457) 
+Quality: whole(1061.9), tokens below:
+Im(19.9397)  Gegensatz(25.3791)  zu(26.066)  aktuellen(18.6881)  Cloud(20.4118) -(20.8444) basierten(25.2605)  Optionen(21.6377) ,(14.9658)  die(14.849)  direkt(18.7274)  auf(18.3406)  den(17.1848)  Rechner(16.9894) n(19.8831)  der(16.5999)  Nutzer(22.3639)  laufen(14.2711) ,(18.5147)  die(13.4178)  Bürger(16.218) innen(14.5206)  und(24.0259)  Bürger(28.3265) ,(15.2125)  ihre(16.7083)  Privatsphäre(23.4811)  zu(22.8987)  bewahren(28.175)  und(20.2646)  erhöht(18.0759)  die(17.8668)  Verbreitung(17.4026)  von(19.2754)  Sprach(21.8813) technologien(29.3214)  in(19.8764)  Europa(21.2343)  in(18.6807)  verschiedenen(21.3894)  Sektoren(22.6996) ,(21.0935)  die(21.4519)  Ver(18.1918) tra(35.3369) u(37.7609) lichkeit(36.7408)  erfordern(25.547) .(22.8856)
  [src Sentence]: Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually.
  [tgt Sentence]: Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Akzeptanz von unten nach oben durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die andernfalls Übersetzungen beschaffen oder einsprachig arbeiten würden.
 Alignments
