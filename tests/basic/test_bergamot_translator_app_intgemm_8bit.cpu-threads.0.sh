@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for bergamot-translator-app
 # AUTHOR: jerinphilip 
-# TAGS: wasm, full
+# TAGS: wasm, full, mac
 #####################################################################
 
 
