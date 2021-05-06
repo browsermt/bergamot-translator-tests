@@ -16,6 +16,7 @@ ARGS=(
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
         $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
     --ssplit-mode paragraph
+    --check-bytearray true
     --alignment soft
     --beam-size 1
     --skip-cost
@@ -29,7 +30,7 @@ ARGS=(
 
 # Generate output specific to hardware.
 OUTFILE="service-cli-bytearray.$prefix.$BRT_INSTRUCTION.out"
-${BRT_MARIAN}/app/service-cli-bytearray "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+${BRT_MARIAN}/app/service-cli "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
 
 # Compare with output specific to hardware.
 $BRT_TOOLS/diff.sh $OUTFILE service-cli.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
