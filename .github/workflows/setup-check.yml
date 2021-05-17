@@ -1,0 +1,23 @@
+# This workflow file only tests if setup runs from a clean install.
+
+name: "Clean run check"
+
+on:
+  push:
+    branches: [ main, ci-sandbox ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+    prerequisites:
+        name: "Install prerrequisites"
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Prerequisties
+              run: |
+                  make install
