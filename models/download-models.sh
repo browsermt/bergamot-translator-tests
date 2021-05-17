@@ -16,3 +16,8 @@ else
     # wasm build doesnt support zipped input 
     ( cd ${OUTPUT_DIR}/${MODEL} && gunzip -f lex.s2t.gz )
 fi
+
+test -f ${OUTPUT_DIR}/${MODEL}/vocab.deen.spm || exit 1
+test -f ${OUTPUT_DIR}/${MODEL}/model.intgemm.alphas.bin || exit 1
+test -f ${OUTPUT_DIR}/${MODEL}/lex.s2t || exit 1
+
