@@ -1,7 +1,7 @@
 #!/bin/bash
 
 URL="http://data.statmt.org/bergamot/models/deen"
-MODEL="ende.student.tiny11"
+MODEL="ende.student.tiny.forregtest"
 FILE="${MODEL}.tar.gz"
 OUTPUT_DIR="deen"
 
