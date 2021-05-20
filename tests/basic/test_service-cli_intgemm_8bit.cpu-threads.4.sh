@@ -18,7 +18,7 @@ ARGS=(
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
     --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
     --ssplit-mode paragraph
-    --check-bytearray false
+    --bytearray false
     --alignment soft
     --beam-size 1
     --skip-cost
