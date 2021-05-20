@@ -11,16 +11,16 @@ set -eo pipefail;
 BRT_INSTRUCTION=$( $BRT_TOOLS/detect-instruction.sh )
 prefix=intgemm_8bit
 ARGS=(
-    -m $BRT_MODELS/deen/ende.student.tiny11/model.intgemm.alphas.bin
+    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
     --vocabs 
-        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
-        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
+        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
+        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
+    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
     --ssplit-mode paragraph
     --check-bytearray true
     --alignment soft
     --beam-size 1
     --skip-cost
-    --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t.bin 50 50
     --int8shiftAlphaAll
     --cpu-threads 4
     --max-length-break 1024
