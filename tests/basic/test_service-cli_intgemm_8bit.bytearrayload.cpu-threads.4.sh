@@ -30,7 +30,7 @@ ARGS=(
 
 # Generate output specific to hardware.
 OUTFILE="service-cli-bytearray.$prefix.$BRT_INSTRUCTION.out"
-${BRT_MARIAN}/app/service-cli "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+${BRT_MARIAN}/app/bergamot --bergamot-mode service-cli "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
 
 # Compare with output specific to hardware.
 $BRT_TOOLS/diff.sh $OUTFILE service-cli.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff

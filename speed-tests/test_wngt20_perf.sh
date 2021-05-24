@@ -72,7 +72,7 @@ ARGS=(
 )
 
 
-${BRT_MARIAN}/app/marian-decoder-new "${ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
 WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
 echo "WallTime: $WALLTIME"
 

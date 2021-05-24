@@ -39,7 +39,7 @@ export BRT_DATA=$BRT_ROOT/data
 export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
 # Check if required tools are present in marian directory
-if [ ! -e $BRT_MARIAN/app/bergamot-translator-app ]; then
+if [ ! -e $BRT_MARIAN/app/bergamot ]; then
     echo "Error: '$BRT_MARIAN/app/bergamot-translator-app' not found. Do you need to compile the toolkit first?"
     exit 1
 fi
@@ -47,16 +47,16 @@ fi
 #log "Using Marian binary: $BRT_MARIAN/marian"
 
 # Log Marian version
-export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot-translator-app --version 2>&1)
+export BRT_MARIAN_VERSION=$($BRT_MARIAN/app/bergamot --version 2>&1)
 log "Version: $BRT_MARIAN_VERSION"
 
 # Get CMake settings from the --build-info option
-if ! grep -q "build-info" < <( $BRT_MARIAN/app/bergamot-translator-app --help ); then
+if ! grep -q "build-info" < <( $BRT_MARIAN/app/bergamot --help ); then
     echo "Error: Marian is too old as it does not have the required --build-info option"
     exit 1
 fi
 
-$BRT_MARIAN/app/bergamot-translator-app --build-info all 2> $BRT_ROOT/cmake.log
+$BRT_MARIAN/app/bergamot --build-info all 2> $BRT_ROOT/cmake.log
 
 # Check Marian compilation settings
 export BRT_MARIAN_BUILD_TYPE=$(cat $BRT_ROOT/cmake.log        | grep "CMAKE_BUILD_TYPE=" | cut -f2 -d=)
