@@ -13,20 +13,21 @@ BRT_INSTRUCTION=$( $BRT_TOOLS/detect-instruction.sh )
 prefix=intgemm_8bit
 
 ARGS=(
-    -m $BRT_MODELS/deen/ende.student.tiny11/model.intgemm.alphas.bin
+    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
     --vocabs 
-        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm 
-        $BRT_MODELS/deen/ende.student.tiny11/vocab.deen.spm
-    --ssplit-mode paragraph
-    --check-bytearray false
+        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
+        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
+    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
     --beam-size 1
     --skip-cost
-    --shortlist $BRT_MODELS/deen/ende.student.tiny11/lex.s2t 50 50
     --int8shiftAlphaAll
-    --cpu-threads 0
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
+
+    --ssplit-mode paragraph
+    --check-bytearray false
+    --cpu-threads 0
 )
 
 # Generate output specific to hardware.
