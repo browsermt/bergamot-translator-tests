@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: service-cli with bytearray load capabilities
 # AUTHOR: jerinphilip 
-# TAGS: full
+# TAGS: full, native
 #####################################################################
 
 set -eo pipefail;
