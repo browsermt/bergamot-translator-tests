@@ -1,16 +1,14 @@
 #!/bin/bash
 
 #####################################################################
-# SUMMARY: Run tests for bergamot-translator-app
+# SUMMARY: Run tests for service-cli
 # AUTHOR: jerinphilip 
-# TAGS: wasm, full, mac
+# TAGS: full
 #####################################################################
-
 
 set -eo pipefail;
 
 source "$BRT_TOOLS/functions.sh"
-prefix=intgemm_8bit
 
 ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
@@ -18,23 +16,23 @@ ARGS=(
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
     --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
+    --ssplit-mode paragraph
+    --bytearray false
+    --alignment soft
     --beam-size 1
     --skip-cost
-    --int8shiftAlphaAll
+    --gemm-precision ${GEMM_PRECISION}
+    --cpu-threads 4
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
-
-    --ssplit-mode paragraph
-    --check-bytearray false
-    --cpu-threads 0
 )
 
 # Generate output specific to hardware.
-OUTFILE="bergamot.$prefix.$BRT_INSTRUCTION.out"
-${BRT_MARIAN}/app/bergamot --bergamot-mode wasm "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+OUTFILE=${BRT_DATA}/simple/bergamot/$(brt_outfile "service-cli")
+EXPECTED=${BRT_DATA}/simple/bergamot/$(brt_expected "service-cli")
+${BRT_MARIAN}/app/bergamot --bergamot-mode native "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
-#This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
+$BRT_TOOLS/diff.sh $OUTFILE $EXPECTED 
 exit 0

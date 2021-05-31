@@ -1,23 +1,21 @@
 #!/bin/bash
 
 #####################################################################
-# SUMMARY: service-cli with bytearray load capabilities
+# SUMMARY: Run tests for service-cli
 # AUTHOR: jerinphilip 
 # TAGS: full
 #####################################################################
 
 set -eo pipefail;
 
-BRT_INSTRUCTION=$( $BRT_TOOLS/detect-instruction.sh )
-prefix=intgemm_8bit
+source "$BRT_TOOLS/functions.sh"
+
 ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
     --vocabs 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-    --ssplit-mode paragraph
-    --bytearray true
+    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
     --alignment soft
     --beam-size 1
     --skip-cost
@@ -29,9 +27,10 @@ ARGS=(
 )
 
 # Generate output specific to hardware.
-OUTFILE="service-cli-bytearray.$prefix.$BRT_INSTRUCTION.out"
-${BRT_MARIAN}/app/bergamot --bergamot-mode native "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+OUTFILE=${BRT_DATA}/simple/bergamot/$(brt_outfile "alignment-probs")
+EXPECTED=${BRT_DATA}/simple/bergamot/$(brt_expected "alignment-probs")
+${BRT_MARIAN}/app/bergamot --bergamot-mode test-alignment-scores "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE service-cli.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
+python3 $BRT_TOOLS/diff-nums.py $OUTFILE ${EXPECTED} 
 exit 0

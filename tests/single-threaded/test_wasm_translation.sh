@@ -3,13 +3,13 @@
 #####################################################################
 # SUMMARY: Run tests for bergamot-translator-app
 # AUTHOR: jerinphilip 
-# TAGS: wasm, full, mac
+# TAGS: wasm
 #####################################################################
 
 
 set -eo pipefail;
 
-source "$BRT_TOOLS/functions.sh"
+source "${BRT_TOOLS}/functions.sh"
 prefix=intgemm_8bit
 
 ARGS=(
@@ -34,7 +34,7 @@ ARGS=(
 OUTFILE="bergamot.$prefix.$BRT_INSTRUCTION.out"
 ${BRT_MARIAN}/app/bergamot --bergamot-mode wasm "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
-#This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
+# This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
 $BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
 exit 0

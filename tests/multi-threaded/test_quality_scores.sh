@@ -8,8 +8,7 @@
 
 set -eo pipefail;
 
-BRT_INSTRUCTION=$( $BRT_TOOLS/detect-instruction.sh )
-prefix=intgemm_8bit
+source "${BRT_TOOLS}/functions.sh"
 
 ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
@@ -17,12 +16,10 @@ ARGS=(
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
     --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
-    --ssplit-mode paragraph
-    --bytearray false
     --alignment soft
     --beam-size 1
     --skip-cost
-    --int8shiftAlphaAll
+    --gemm-precision ${GEMM_PRECISION}
     --cpu-threads 4
     --max-length-break 1024
     --mini-batch-words 1024
@@ -30,9 +27,10 @@ ARGS=(
 )
 
 # Generate output specific to hardware.
-OUTFILE="service-cli.$prefix.$BRT_INSTRUCTION.out"
-${BRT_MARIAN}/app/bergamot --bergamot-mode native "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot.in > $OUTFILE
+OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "quality-scores")
+EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "quality-scores")
+${BRT_MARIAN}/app/bergamot --bergamot-mode test-quality-scores "${COMMON_ARGS[@]}" --ssplit-mode paragraph --bytearray false < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
 
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE service-cli.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
+python3 ${BRT_TOOLS}/diff-nums.py ${OUTFILE} ${EXPECTED}
 exit 0

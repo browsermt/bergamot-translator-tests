@@ -16,6 +16,7 @@ tools/moses-scripts
 tools/subword-nmt
 tools/nematus
 tools/sacrebleu
+tools/cpu-features
 
 models/deen/*
 
