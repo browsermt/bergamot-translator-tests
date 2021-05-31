@@ -82,10 +82,10 @@ export BRT_MARIAN_USE_MKL=on # hardcode
 # Additional environment setup
 source "env.d/base.sh"
 BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
-if [[ "$BRT_EVAL_MODE" == "exact" ]]; then
-    source "env.d/exact.sh"
-else
+if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
     source "env.d/approx.sh"
+else
+    source "env.d/exact.sh"
 fi
 
 # Number of available devices

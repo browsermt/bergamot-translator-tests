@@ -30,7 +30,7 @@ function detect-max-instruction {
 
 
 function detect-env-instruction {
-    echo "INTGEMM_CPUID=$INTGEMM_CPUID" 1>&2 ;
+    # echo "INTGEMM_CPUID=$INTGEMM_CPUID" 1>&2 ;
     if [[ "$INTGEMM_CPUID" == "AVX512VNNI" ]];
     then
         echo "avx512vnni";
