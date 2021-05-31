@@ -9,7 +9,6 @@
 
 set -eo pipefail;
 
-source "$BRT_TOOLS/functions.sh"
 prefix=intgemm_8bit
 
 ARGS=(

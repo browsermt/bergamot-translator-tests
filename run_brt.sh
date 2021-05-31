@@ -41,7 +41,7 @@ export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
 # Check if required tools are present in marian directory
 if [ ! -e $BRT_MARIAN/app/bergamot ]; then
-    echo "Error: '$BRT_MARIAN/app/bergamot-translator-app' not found. Do you need to compile the toolkit first?"
+    echo "Error: '$BRT_MARIAN/app/bergamot' not found. Do you need to compile the toolkit first?"
     exit 1
 fi
 
@@ -79,6 +79,15 @@ log "Using FBGEMM: $BRT_MARIAN_USE_FBGEMM"
 log "Unit tests: $BRT_MARIAN_USE_UNITTESTS"
 export BRT_MARIAN_USE_MKL=on # hardcode
 
+# Additional environment setup
+source "env.d/base.sh"
+BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
+if [[ "$BRT_EVAL_MODE" == "exact" ]]; then
+    source "env.d/exact.sh"
+else
+    source "env.d/approx.sh"
+fi
+
 # Number of available devices
 # cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
 # export BRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
@@ -107,6 +116,7 @@ function format_time {
     ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
+
 
 ###############################################################################
 # Default directory with all regression tests

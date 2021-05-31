@@ -1,15 +1,9 @@
 #!/bin/bash
 
-set -eo pipefail;
-
 function detect-instruction {
     BRT_INSTRUCTION=''
 
     CPU_FEATURES_OUTPUT=cpu.features.log
-
-    # Find the directory this file is in: https://stackoverflow.com/a/246128/4565794
-    BRT_TOOLS="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
     $BRT_TOOLS/cpu-features/build/list_cpu_features > $CPU_FEATURES_OUTPUT
 
     # Skip if requirements are not met
@@ -38,7 +32,7 @@ export GEMM_PRECISION=int8shiftAlphaAll
 export BRT_INSTRUCTION=$(detect-instruction)
 
 
-export COMMON_ARGS=(
+COMMON_ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
     --vocabs 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
@@ -52,25 +46,24 @@ export COMMON_ARGS=(
     -w 128
 )
 
-export BRT_FILE_ARGS=(
-    "${COMMON_ARGS[@]}"
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-    --bytearray false
-)
-
-export BRT_BYTEARRAY_ARGS=(
-    "${COMMON_ARGS[@]}"
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-    --bytearray true
-)
-
-
-function brt_outfile {
-    TEST_NAME=$1
-    echo "outputs/${GEMM_PRECISION}/${BRT_INSTRUCTION}/${TEST_NAME}.out"
+function brt-file-args {
+    BRT_FILE_ARGS=(
+        "${COMMON_ARGS[@]}"
+        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
+        --bytearray false
+    )
+    echo "${BRT_FILE_ARGS[@]}";
 }
 
-function brt_expected {
-    TEST_NAME=$1
-    echo "outputs/${GEMM_PRECISION}/${BRT_INSTRUCTION}/${TEST_NAME}.expected"
+function brt-bytearray-args {
+    BRT_BYTEARRAY_ARGS=(
+        "${COMMON_ARGS[@]}"
+        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
+        --bytearray true
+    )
+    echo "${BRT_BYTEARRAY_ARGS[@]}"
 }
+
+export BRT_FILE_ARGS=$(brt-file-args)
+export BRT_BYTEARRAY_ARGS=$(brt-bytearray-args)
+
