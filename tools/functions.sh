@@ -32,18 +32,17 @@ function detect-instruction {
     fi
 
     echo $BRT_INSTRUCTION
-    #  export BRT_INSTRUCTION=${BRT_INSTRUCTION}
 }
 
 export GEMM_PRECISION=int8shiftAlphaAll
 export BRT_INSTRUCTION=$(detect-instruction)
+
 
 export COMMON_ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
     --vocabs 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
     --alignment soft
     --beam-size 1
     --skip-cost
@@ -51,6 +50,18 @@ export COMMON_ARGS=(
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
+)
+
+export BRT_FILE_ARGS=(
+    "${COMMON_ARGS[@]}"
+    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
+    --bytearray false
+)
+
+export BRT_BYTEARRAY_ARGS=(
+    "${COMMON_ARGS[@]}"
+    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
+    --bytearray true
 )
 
 
