@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function detect-instruction {
+function detect-max-instruction {
     BRT_INSTRUCTION=''
 
     CPU_FEATURES_OUTPUT=cpu.features.log
@@ -28,9 +28,28 @@ function detect-instruction {
     echo $BRT_INSTRUCTION
 }
 
-export GEMM_PRECISION=int8shiftAlphaAll
-export BRT_INSTRUCTION=$(detect-instruction)
 
+function detect-env-instruction {
+    echo "INTGEMM_CPUID=$INTGEMM_CPUID" 1>&2 ;
+    if [[ "$INTGEMM_CPUID" == "AVX512VNNI" ]];
+    then
+        echo "avx512vnni";
+    elif [[ "$INTGEMM_CPUID" == "AVX512BW" ]]
+    then
+        echo "avx512";
+    elif [[ "$INTGEMM_CPUID" == "AVX2" ]]
+    then
+        echo "avx2";
+    elif [[ "$INTGEMM_CPUID" == "SSSE3" ]]
+    then
+        echo "ssse3";
+    else
+        echo $(detect-max-instruction)
+    fi
+}
+
+export GEMM_PRECISION=int8shiftAlphaAll
+export BRT_INSTRUCTION=$(detect-env-instruction)
 
 COMMON_ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
