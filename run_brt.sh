@@ -82,6 +82,20 @@ export BRT_MARIAN_USE_MKL=on # hardcode
 # Additional environment setup
 source "env.d/base.sh"
 
+# Expected to set environment variables controlling dispatch of intgemm and
+# MKL.  Further sets the BRT_INSTRUCTION for use in all shell-scripts. The
+# outputs (exact) are dependent on the instruction available, due to floating
+# point operations differing with these..
+
+INSTRUCTION=${INSTRUCTION:-auto}
+eval "$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)"
+
+# Prints environment variables set by the above evaluation operation"
+printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL_ENABLE"
+
+# We switch brt_outfile, brt_expected functions. If exact, the file uses the instruction, gemmprecision specific file.
+# If otherwise, points to avx512vnni. When called with a smaller architecture, this leads to approximate evaluations.
+
 export BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
     source "env.d/approx.sh"
@@ -89,10 +103,7 @@ else
     source "env.d/exact.sh"
 fi
 
-INSTRUCTION=${INSTRUCTION:-auto}
 
-eval "$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)"
-printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL"
 
 # Number of available devices
 # cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
