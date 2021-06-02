@@ -35,5 +35,9 @@ ${BRT_MARIAN}/app/bergamot --bergamot-mode wasm "${ARGS[@]}" < ${BRT_DATA}/simpl
 
 #This used to be provided via stdin: < ${BRT_DATA}/simple/bergamot.in  but the bergamot-translator-app doesn't accept stdin text
 # Compare with output specific to hardware.
-$BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected > $prefix.$BRT_INSTRUCTION.diff
+if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
+    $BRT_TOOLS/approx-diff.py $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected
+else
+    $BRT_TOOLS/diff.sh $OUTFILE bergamot.$prefix.$BRT_INSTRUCTION.expected 
+fi
 exit 0

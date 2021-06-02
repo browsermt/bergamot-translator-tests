@@ -81,12 +81,18 @@ export BRT_MARIAN_USE_MKL=on # hardcode
 
 # Additional environment setup
 source "env.d/base.sh"
-BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
+
+export BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
     source "env.d/approx.sh"
 else
     source "env.d/exact.sh"
 fi
+
+INSTRUCTION=${INSTRUCTION:-auto}
+
+eval "$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)"
+printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL"
 
 # Number of available devices
 # cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
