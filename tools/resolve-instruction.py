@@ -36,7 +36,7 @@ def env_setup_commands(resolved):
     return ('\n'.join(commands))
 
 def main(args):
-    proc = sp.run(args=[args.path, '--json'], capture_output=True)
+    proc = sp.run(args=[args.path, '--json'], stdout=sp.PIPE, stderr=sp.PIPE)
     output = proc.stdout.decode('utf-8').strip()
     data = json.loads(output, strict=False)
     instructions = list(set(data["flags"]).intersection(set(available)))
