@@ -10,7 +10,7 @@ def parse_user_args():
     parser.add_argument("file2", type=str)
     parser.add_argument("-o", "--output", type=argparse.FileType('w'), metavar="FILE", default=sys.stdout)
     parser.add_argument("-p", "--precision", type=float, metavar="FLOAT", default=0.001)
-    parser.add_argument("-n", "--allow-n-diffs", type=int, metavar="INT", default=0)
+    parser.add_argument("-e", "--allow-error-rate", type=float, metavar="FLOAT", default=0)
     # parser.add_argument("-s", "--separate", type=str, metavar="STRING")
     parser.add_argument("-a", "--abs", action="store_true")
     parser.add_argument("--numpy", action="store_true")
@@ -46,7 +46,7 @@ def parse_user_args():
 def main(args):
     metric = sacrebleu.metrics.METRICS['bleu'](args)
 
-    def loadNonEmptyLines(fpath):
+    def load_non_empty_lines(fpath):
         content = None
         with open(fpath) as fp:
             content = fp.read().splitlines()
@@ -54,18 +54,19 @@ def main(args):
             content = list(filter(nonEmpty, content))
         return content
 
-    system = loadNonEmptyLines(args.file1)
-    refs = [ loadNonEmptyLines(args.file2) ]
+    system = load_non_empty_lines(args.file1)
+    refs = [ load_non_empty_lines(args.file2) ]
 
     faults = 0
+    max_allowed_faults = 0
     if args.sentence_level:
+        max_allowed_faults = args.allow_error_rate*len(system)
         for i, (output, *references) in enumerate(zip(system, *refs), 1):
             score = metric.sentence_score(output, references)
             condition = score.score > args.greater_than
             if (not condition):
                 faults += 1
                 print("In line {}, {} <= {}; Fault {}".format(i, score.score, args.greater_than, faults))
-
 
     else:
         score = metric.corpus_score(system, refs)
@@ -74,7 +75,8 @@ def main(args):
             print("Corpus BLEU, {} <= {}".format(i, score.score, args.greater_than))
             faults += 1
 
-    retcode = 0 if faults <= args.allow_n_diffs else 1
+    print("faults / max_allowed = {} / {} ".format(faults, max_allowed_faults))
+    retcode = 0 if faults <= max_allowed_faults else 1
     exit(retcode)
 
 
