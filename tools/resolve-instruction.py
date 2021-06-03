@@ -1,9 +1,30 @@
 #!/usr/bin/env python3
 
+"""
+Prints environment update commands for a specific input instruction. As of now,
+provides configuration for the following which are consistent.
+
+  INTGEMM_CPUID
+  BRT_INSTRUCTION
+  MKL_ENABLE_INSTRUCTION
+
+Default operation is autodetect, which resolves to the highest available
+instruction on the hardware run.
+
+Requires the `list_cpu_features` executable from
+https://github.com/google/cpu_features, which provides a cross-platfrom CPU
+detection. The JSON output from `list_cpu_features` is used to resolve the
+highest amongst available instruction on the hardware optionally upto a user
+specified instruction.
+"""
+
 import sys
 import argparse
 import subprocess as sp
 import json
+
+# BRT available instructions (due to INTGEMM), in order of decreasing
+# preference.
 
 available = [
     'avx512vnni', 
@@ -13,7 +34,10 @@ available = [
     'ssse3', 
 ]
 
+# INTGEMM uses the uppercase of the above.
 INTGEMM_TABLE = { k: k.upper() for k in available }
+
+# MKL has a limitation in SSSE3, where we instead choose SSE4_2.
 
 MKL_TABLE = {
     "avx512vnni": "AVX512",
@@ -24,11 +48,14 @@ MKL_TABLE = {
 }
 
 def env_setup_commands(resolved):
+    # avx codepath is same as SSSE3 for INTGEMM.
     instruction = "ssse3" if resolved == "avx" else resolved
-    envvars = {}
-    envvars["INTGEMM_CPUID"] = INTGEMM_TABLE[instruction]
-    envvars["BRT_INSTRUCTION"] = instruction
-    envvars["MKL_ENABLE_INSTRUCTIONS"] = MKL_TABLE[instruction]
+
+    envvars = {
+        "INTGEMM_CPUID" : INTGEMM_TABLE[instruction],
+        "BRT_INSTRUCTION" : instruction,
+        "MKL_ENABLE_INSTRUCTIONS" : MKL_TABLE[instruction]
+    }
     
     commands = [
         'export {}={}'.format(key, value) for key, value in envvars.items()
@@ -36,19 +63,23 @@ def env_setup_commands(resolved):
     return ('\n'.join(commands))
 
 def main(args):
+    # Run `list_cpu_features` to obtain JSON output.
     proc = sp.run(args=[args.path, '--json'], stdout=sp.PIPE, stderr=sp.PIPE)
     output = proc.stdout.decode('utf-8').strip()
     data = json.loads(output, strict=False)
+
+    # Check instructions common to flags, and those available to BRT (hardcoded here).
     instructions = list(set(data["flags"]).intersection(set(available)))
-    instructions = sorted(instructions, key=lambda x: available.index(x))
+
+    # Find the top available instruction
+    top = min(instructions, key=lambda x: available.index(x))
 
     def min_instruction(a, b):
         return a if available.index(a) > available.index(b) else b
 
-
-    top, *rest = instructions
+    # If args.upto is specified, resolve instruction further.
     resolved = top if (args.upto not in available) else min_instruction(top, args.upto)
-    # print(resolved)
+
     print(env_setup_commands(resolved))
 
 if __name__ == '__main__':
