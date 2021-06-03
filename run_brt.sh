@@ -88,10 +88,16 @@ source "env.d/base.sh"
 # point operations differing with these..
 
 INSTRUCTION=${INSTRUCTION:-auto}
-eval "$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)"
+BRT_INSTRUCTION_VARS=$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)
+if [[ $? -ne 0 ]]; then
+    log "Fatal: error inferring instruction."
+    exit 1
+fi
+
+eval "$BRT_INSTRUCTION_VARS"
 
 # Prints environment variables set by the above evaluation operation"
-printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL_ENABLE"
+log "Using instruction variables: $(printenv | grep -e INTGEMM_CPUID -e BRT_INSTRUCTION -e MKL_ENABLE)"
 
 # We switch brt_outfile, brt_expected functions. If exact, the file uses the instruction, gemmprecision specific file.
 # If otherwise, points to avx512vnni. When called with a smaller architecture, this leads to approximate evaluations.
