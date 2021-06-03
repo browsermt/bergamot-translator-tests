@@ -13,5 +13,6 @@ OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "response-source-sentences")
 EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "response-source-sentences")
 ${BRT_MARIAN}/app/bergamot --bergamot-mode test-response-source-sentences ${BRT_FILE_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
 
+# Source sentences are deterministic.
 $BRT_TOOLS/diff.sh $OUTFILE $EXPECTED 
 exit 0

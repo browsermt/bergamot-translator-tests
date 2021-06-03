@@ -16,7 +16,7 @@ def parse_user_args():
     parser.add_argument("--numpy", action="store_true")
     parser.add_argument("-q", "--quiet", action="store_true")
 
-    # BLEU related arguments
+    # BLEU related arguments: These are required to use sacreBleu
     parser.add_argument('--smooth-method', '-s', choices=sacrebleu.metrics.METRICS['bleu'].SMOOTH_DEFAULTS.keys(), default='exp',
                             help='smoothing method: exponential decay (default), floor (increment zero counts), add-k (increment num/denom by k for n>1), or none')
     parser.add_argument('--smooth-value', '-sv', type=float, default=None,
@@ -44,8 +44,7 @@ def parse_user_args():
 
 
 def main(args):
-    metric = 'bleu'
-    metric = sacrebleu.metrics.METRICS[metric](args)
+    metric = sacrebleu.metrics.METRICS['bleu'](args)
 
     def loadNonEmptyLines(fpath):
         content = None
@@ -57,6 +56,7 @@ def main(args):
 
     system = loadNonEmptyLines(args.file1)
     refs = [ loadNonEmptyLines(args.file2) ]
+
     faults = 0
     if args.sentence_level:
         for i, (output, *references) in enumerate(zip(system, *refs), 1):
