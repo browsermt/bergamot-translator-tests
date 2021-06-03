@@ -6,7 +6,7 @@ provides configuration for the following which are consistent.
 
   INTGEMM_CPUID
   BRT_INSTRUCTION
-  MKL_ENABLE_INSTRUCTION
+  MKL_ENABLE_INSTRUCTIONS
 
 Default operation is autodetect, which resolves to the highest available
 instruction on the hardware run.
