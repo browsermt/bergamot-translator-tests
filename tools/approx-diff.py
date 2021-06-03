@@ -69,6 +69,7 @@ def main(args):
 
     else:
         score = metric.corpus_score(system, refs)
+        condition = score.score > args.greater_than
         if (not condition):
             print("Corpus BLEU, {} <= {}".format(i, score.score, args.greater_than))
             faults += 1
