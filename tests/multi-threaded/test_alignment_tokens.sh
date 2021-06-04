@@ -11,7 +11,7 @@ set -eo pipefail;
 # Generate output specific to hardware.
 OUTFILE=${BRT_DATA}/simple/bergamot/$(brt_outfile "alignment-words")
 EXPECTED=${BRT_DATA}/simple/bergamot/$(brt_expected "alignment-words")
-${BRT_MARIAN}/app/bergamot --bergamot-mode test-alignment-words ${BRT_FILE_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+${BRT_MARIAN}/bergamot-test --bergamot-mode test-alignment-words ${BRT_FILE_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
