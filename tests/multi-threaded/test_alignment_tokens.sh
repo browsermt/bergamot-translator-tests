@@ -15,7 +15,7 @@ ${BRT_MARIAN}/app/bergamot --bergamot-mode test-alignment-words ${BRT_FILE_ARGS}
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
-    python3 $BRT_TOOLS/approx-diff.py $OUTFILE ${EXPECTED} --sentence-level --greater-than 50
+    python3 $BRT_TOOLS/approx-diff.py $OUTFILE ${EXPECTED} --sentence-level --greater-than 30 --allow-error-rate 0.05
 else
     $BRT_TOOLS/diff.sh $OUTFILE ${EXPECTED} 
 fi
