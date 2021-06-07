@@ -87,17 +87,46 @@ source "env.d/base.sh"
 # outputs (exact) are dependent on the instruction available, due to floating
 # point operations differing with these..
 
-INSTRUCTION=${INSTRUCTION:-auto}
-BRT_INSTRUCTION_VARS=$(python3 $BRT_TOOLS/resolve-instruction.py --path $BRT_TOOLS/cpu-features/build/list_cpu_features --upto $INSTRUCTION)
-if [[ $? -ne 0 ]]; then
-    log "Fatal: error inferring instruction."
-    exit 1
-fi
+# INTGEMM_CPUID is used to switch, min works internally based on what intgemm will call.
+# enum class CPUType {
+#   UNSUPPORTED = 0,
+#   SSE2 = 1,
+#   SSSE3 = 2,
+#   AVX2 = 3,
+#   AVX512BW = 4,
+#   AVX512VNNI = 5
+# };
 
-eval "$BRT_INSTRUCTION_VARS"
+declare -a BRT_EXPORTS
+export BRT_INSTRUCTION_CODE=$($BRT_MARIAN/app/bergamot --gemm-highest-arch)
+case $BRT_INSTRUCTION_CODE in
+    0) 
+        echo "Unsupported hardware"
+        exit 1
+        ;;
+    1) 
+        # ...?
+        ;;
+    2) 
+        BRT_EXPORTS+=("BRT_INSTRUCTION=ssse3 MKL_ENABLE_INSTRUCTIONS=SSE4_2")
+        ;;
+    3)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx2 MKL_ENABLE_INSTRUCTIONS=AVX2")
+        ;;
+    4)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx512bw MKL_ENABLE_INSTRUCTIONS=AVX512")
+        ;;
+    5)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx512vnni MKL_ENABLE_INSTRUCTIONS=AVX512")
+        ;;
+    *)
+        echo "Invalid option: ${BRT_INSTRUCTION_CODE}!";
+        exit 1
+esac
 
-# Prints environment variables set by the above evaluation operation"
-log "Using instruction variables: $(printenv | grep -e INTGEMM_CPUID -e BRT_INSTRUCTION -e MKL_ENABLE)"
+echo $BRT_EXPORTS;
+eval "export $BRT_EXPORTS"
+printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL_ENABLE_INSTRUCTIONS"
 
 # We switch brt_outfile, brt_expected functions. If exact, the file uses the instruction, gemmprecision specific file.
 # If otherwise, points to avx512vnni. When called with a smaller architecture, this leads to approximate evaluations.
