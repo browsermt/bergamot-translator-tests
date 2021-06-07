@@ -98,7 +98,7 @@ source "env.d/base.sh"
 # };
 
 declare -a BRT_EXPORTS
-export BRT_INSTRUCTION_CODE=$($BRT_MARIAN/app/bergamot --gemm-highest-arch)
+export BRT_INSTRUCTION_CODE=$($BRT_MARIAN/intgemm-resolve)
 case $BRT_INSTRUCTION_CODE in
     0) 
         echo "Unsupported hardware"
