@@ -128,6 +128,7 @@ case $BRT_INSTRUCTION_CODE in
     *)
         echo "Invalid option: ${BRT_INSTRUCTION_CODE}!";
         exit 1
+        ;;
 esac
 
 eval "export $BRT_EXPORTS"
