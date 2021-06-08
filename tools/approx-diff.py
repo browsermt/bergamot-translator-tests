@@ -96,7 +96,7 @@ def main(args):
             print("Corpus BLEU, {} <= {}".format(i, score.score, args.greater_than))
             faults += 1
 
-    print("faults / max_allowed = {} / {} ".format(faults, max_allowed_faults))
+    print("faults / max_allowed among {} samples = {} / {} ".format(len(system), faults, max_allowed_faults))
     retcode = 0 if faults <= max_allowed_faults else 1
     exit(retcode)
 

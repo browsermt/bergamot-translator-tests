@@ -15,7 +15,7 @@ ${BRT_MARIAN}/bergamot-test --bergamot-mode test-response-target-sentences ${BRT
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
-    python3 $BRT_TOOLS/approx-diff.py $OUTFILE ${EXPECTED} --sentence-level --greater-than 50
+    python3 $BRT_TOOLS/approx-diff.py $OUTFILE ${EXPECTED}
 else
     $BRT_TOOLS/diff.sh $OUTFILE ${EXPECTED} 
 fi
