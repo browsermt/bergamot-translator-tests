@@ -1,5 +1,29 @@
 #!/usr/bin/env python3
 
+"""
+Converts sacrebleu into an assert for usage in a test-suite, with a few
+hyperparameters to tweak per test-set. Usage is kept to similar to
+diff-nums.py, which is inherited from marian-regression-tests, with a few
+additional arguments.
+
+Example usage:
+    python3 approx-diff.py <output-file> <expected-output>    \
+            --greater-than <bleu-threshold> 
+
+Optionally, one can also switch to sentence-level BLEU score asserts and an
+additional error rate, which can be useful to be tuned to per (output,
+expected) pair based on the nature of the task.
+
+    python3 approx-diff.py <output-file> <expected-output>    \
+            --greater-than <bleu-threshold>  --sentence-level \
+            --allow-error-rate <error-rate in [0.0, 1.0]>
+
+This is intended as an approximate substitute for tools/diff.sh,
+which is simply a redirect to the diff utility.  diff checks for exact matches,
+which makes the tests susceptible to failure when output translations differ
+out of floating point arithmetic differences.
+"""
+
 import sys
 import argparse
 import sacrebleu
@@ -9,11 +33,7 @@ def parse_user_args():
     parser.add_argument("file1", type=str)
     parser.add_argument("file2", type=str)
     parser.add_argument("-o", "--output", type=argparse.FileType('w'), metavar="FILE", default=sys.stdout)
-    parser.add_argument("-p", "--precision", type=float, metavar="FLOAT", default=0.001)
     parser.add_argument("-e", "--allow-error-rate", type=float, metavar="FLOAT", default=0)
-    # parser.add_argument("-s", "--separate", type=str, metavar="STRING")
-    parser.add_argument("-a", "--abs", action="store_true")
-    parser.add_argument("--numpy", action="store_true")
     parser.add_argument("-q", "--quiet", action="store_true")
 
     # BLEU related arguments: These are required to use sacreBleu
@@ -37,6 +57,7 @@ def parse_user_args():
 
     parser.add_argument('--sentence-level', '-sl', default=False, action='store_true',
                             help='Compute sentence-level assertions')
+
     parser.add_argument('--greater-than', '-gt', default=40, type=float)
 
     return parser.parse_args()
