@@ -87,7 +87,12 @@ source "env.d/base.sh"
 # outputs (exact) are dependent on the instruction available, due to floating
 # point operations differing with these..
 
-# INTGEMM_CPUID is used to switch, min works internally based on what intgemm will call.
+# Environment variable INTGEMM_CPUID can be used from outside this script to
+# manually switch to using a specific set of instructions.  This script uses
+# intgemm to infer which instruction is used at runtime.
+#
+# From https://github.com/kpu/intgemm/blob/18bcba45d08bcc0d5b64334b4b6ea2188a17b4f8/intgemm/types.h#L58-L66 
+# 
 # enum class CPUType {
 #   UNSUPPORTED = 0,
 #   SSE2 = 1,
@@ -98,16 +103,17 @@ source "env.d/base.sh"
 # };
 
 declare -a BRT_EXPORTS
-export BRT_INSTRUCTION_CODE=$($BRT_MARIAN/intgemm-resolve)
+BRT_INSTRUCTION_CODE=$($BRT_MARIAN/intgemm-resolve)
 case $BRT_INSTRUCTION_CODE in
     0) 
         echo "Unsupported hardware"
         exit 1
         ;;
     1) 
-        # ...?
+        echo "SSE2 is  not supported at the moment due to missing documentation."
+        exit 1
         ;;
-    2) 
+    2)  
         BRT_EXPORTS+=("BRT_INSTRUCTION=ssse3 MKL_ENABLE_INSTRUCTIONS=SSE4_2")
         ;;
     3)  
@@ -124,9 +130,8 @@ case $BRT_INSTRUCTION_CODE in
         exit 1
 esac
 
-echo $BRT_EXPORTS;
 eval "export $BRT_EXPORTS"
-printenv | grep -e "INTGEMM_CPUID" -e "BRT_INSTRUCTION" -e "MKL_ENABLE_INSTRUCTIONS"
+log "Using these instructions: BRT_INSTRUCTION=$BRT_INSTRUCTION MKL_ENABLE_INSTRUCTIONS=$MKL_ENABLE_INSTRUCTIONS"
 
 # We switch brt_outfile, brt_expected functions. If exact, the file uses the instruction, gemmprecision specific file.
 # If otherwise, points to avx512vnni. When called with a smaller architecture, this leads to approximate evaluations.
