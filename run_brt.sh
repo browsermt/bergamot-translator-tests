@@ -41,7 +41,7 @@ export LD_LIBRARY_PATH="${BRT_MARIAN}:${LD_LIBRARY_PATH}"
 
 # Check if required tools are present in marian directory
 if [ ! -e $BRT_MARIAN/app/bergamot ]; then
-    echo "Error: '$BRT_MARIAN/app/bergamot-translator-app' not found. Do you need to compile the toolkit first?"
+    echo "Error: '$BRT_MARIAN/app/bergamot' not found. Do you need to compile the toolkit first?"
     exit 1
 fi
 
@@ -79,6 +79,73 @@ log "Using FBGEMM: $BRT_MARIAN_USE_FBGEMM"
 log "Unit tests: $BRT_MARIAN_USE_UNITTESTS"
 export BRT_MARIAN_USE_MKL=on # hardcode
 
+# Additional environment setup
+source "env.d/base.sh"
+
+# Expected to set environment variables controlling dispatch of intgemm and
+# MKL.  Further sets the BRT_INSTRUCTION for use in all shell-scripts. The
+# outputs (exact) are dependent on the instruction available, due to floating
+# point operations differing with these..
+
+# Environment variable INTGEMM_CPUID can be used from outside this script to
+# manually switch to using a specific set of instructions.  This script uses
+# intgemm to infer which instruction is used at runtime.
+#
+# From https://github.com/kpu/intgemm/blob/18bcba45d08bcc0d5b64334b4b6ea2188a17b4f8/intgemm/types.h#L58-L66 
+# 
+# enum class CPUType {
+#   UNSUPPORTED = 0,
+#   SSE2 = 1,
+#   SSSE3 = 2,
+#   AVX2 = 3,
+#   AVX512BW = 4,
+#   AVX512VNNI = 5
+# };
+
+declare -a BRT_EXPORTS
+BRT_INSTRUCTION_CODE=$($BRT_MARIAN/intgemm-resolve)
+case $BRT_INSTRUCTION_CODE in
+    0) 
+        echo "Unsupported hardware"
+        exit 1
+        ;;
+    1) 
+        echo "SSE2 is  not supported at the moment due to missing documentation."
+        exit 1
+        ;;
+    2)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=ssse3 MKL_ENABLE_INSTRUCTIONS=SSE4_2")
+        ;;
+    3)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx2 MKL_ENABLE_INSTRUCTIONS=AVX2")
+        ;;
+    4)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx512bw MKL_ENABLE_INSTRUCTIONS=AVX512")
+        ;;
+    5)  
+        BRT_EXPORTS+=("BRT_INSTRUCTION=avx512vnni MKL_ENABLE_INSTRUCTIONS=AVX512")
+        ;;
+    *)
+        echo "Invalid option: ${BRT_INSTRUCTION_CODE}!";
+        exit 1
+        ;;
+esac
+
+eval "export $BRT_EXPORTS"
+log "Using these instructions: BRT_INSTRUCTION=$BRT_INSTRUCTION MKL_ENABLE_INSTRUCTIONS=$MKL_ENABLE_INSTRUCTIONS"
+
+# We switch brt_outfile, brt_expected functions. If exact, the file uses the instruction, gemmprecision specific file.
+# If otherwise, points to avx512vnni. When called with a smaller architecture, this leads to approximate evaluations.
+
+export BRT_EVAL_MODE=${BRT_EVAL_MODE:-exact}
+if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
+    source "env.d/approx.sh"
+else
+    source "env.d/exact.sh"
+fi
+
+
+
 # Number of available devices
 # cuda_num_devices=$(($(echo $CUDA_VISIBLE_DEVICES | grep -c ',')+1))
 # export BRT_NUM_DEVICES=${NUM_DEVICES:-$cuda_num_devices}
@@ -107,6 +174,7 @@ function format_time {
     ds=$(echo "$dt2-60*$dm" | bc 2>/dev/null)
     LANG=C printf "%02d:%02d:%02.3fs" $dh $dm $ds
 }
+
 
 ###############################################################################
 # Default directory with all regression tests

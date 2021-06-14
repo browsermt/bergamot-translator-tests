@@ -22,12 +22,6 @@ tools: pip
 	mkdir -p $@
 	git -C $@/moses-scripts pull || git clone $(GIT_MOSES_SCRIPTS) $@/moses-scripts
 	git -C $@/subword-nmt pull   || git clone $(GIT_SUBWORD_NMT) $@/subword-nmt
-	git -C $@/cpu-features pull  ||  \
-		( git clone $(GIT_CPU_FEATURES) $@/cpu-features \
-			&& mkdir -p $@/cpu-features/build \
-			&& cd $@/cpu-features/build \
-			&& cmake .. && make -j2 )
-
 
 pip: requirements.txt
 	python3 -m pip install --user -r $<
