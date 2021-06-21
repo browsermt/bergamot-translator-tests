@@ -19,6 +19,8 @@ COMMON_ARGS=(
     --vocabs 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
+    --ssplit-prefix-file
+        $BRT_TEST_PACKAGE_EN_DE/nonbreaking_prefix.en
     --alignment soft
     --beam-size 1
     --skip-cost
