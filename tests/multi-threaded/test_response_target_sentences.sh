@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for service-cli
 # AUTHOR: jerinphilip 
-# TAGS: full
+# TAGS: full, native
 #####################################################################
 
 set -eo pipefail;
