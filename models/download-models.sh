@@ -21,3 +21,9 @@ test -f ${OUTPUT_DIR}/${MODEL}/vocab.deen.spm || exit 1
 test -f ${OUTPUT_DIR}/${MODEL}/model.intgemm.alphas.bin || exit 1
 test -f ${OUTPUT_DIR}/${MODEL}/lex.s2t || exit 1
 
+# Get ssplit non-breaking prefix file. 
+# TODO: Bundle this in the archive.
+
+wget https://raw.githubusercontent.com/ugermann/ssplit-cpp/master/nonbreaking_prefixes/nonbreaking_prefix.en -O ${OUTPUT_DIR}/${MODEL}/nonbreaking_prefix.en || exit 1
+test -f ${OUTPUT_DIR}/${MODEL}/nonbreaking_prefix.en || exit 1
+
