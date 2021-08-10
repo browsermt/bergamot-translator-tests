@@ -15,19 +15,11 @@ export GEMM_PRECISION=int8shiftAlphaAll
 # having to repeat and possible inconsitency over several scripts.
 
 COMMON_ARGS=(
-    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
-    --vocabs 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
+    --configs $BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml
     --ssplit-prefix-file
         $BRT_TEST_PACKAGE_EN_DE/nonbreaking_prefix.en
-    --alignment soft
-    --beam-size 1
-    --skip-cost
-    --gemm-precision ${GEMM_PRECISION} 
     --max-length-break 1024
     --mini-batch-words 1024
-    -w 128
 )
 
 # Shortlist differs in filename when using bytearray or files.
@@ -35,18 +27,14 @@ COMMON_ARGS=(
 
 function brt-file-args {
     BRT_FILE_ARGS=(
-        "${COMMON_ARGS[@]}"
-        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-        --bytearray false
+        "${COMMON_ARGS[@]}" --bytearray false
     )
     echo "${BRT_FILE_ARGS[@]}";
 }
 
 function brt-bytearray-args {
     BRT_BYTEARRAY_ARGS=(
-        "${COMMON_ARGS[@]}"
-        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-        --bytearray true
+        "${COMMON_ARGS[@]}" --bytearray true
     )
     echo "${BRT_BYTEARRAY_ARGS[@]}"
 }
