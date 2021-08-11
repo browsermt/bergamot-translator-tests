@@ -27,3 +27,5 @@ test -f ${OUTPUT_DIR}/${MODEL}/lex.s2t || exit 1
 wget https://raw.githubusercontent.com/ugermann/ssplit-cpp/master/nonbreaking_prefixes/nonbreaking_prefix.en -O ${OUTPUT_DIR}/${MODEL}/nonbreaking_prefix.en || exit 1
 test -f ${OUTPUT_DIR}/${MODEL}/nonbreaking_prefix.en || exit 1
 
+python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml --ssplit-prefix-file nonbreaking_prefix.en
+
