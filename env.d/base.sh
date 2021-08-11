@@ -16,6 +16,7 @@ export GEMM_PRECISION=int8shiftAlphaAll
 
 COMMON_ARGS=(
     --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml"
+    --cpu-threads 4 
 )
 
 # Shortlist differs in filename when using bytearray or files.
