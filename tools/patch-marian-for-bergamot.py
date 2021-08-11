@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     data.update({
         'ssplit-prefix-file': args.ssplit_prefix_file,
-        'ssplit-mode': 'paragraph'
+        'ssplit-mode': 'paragraph',
         'max-length-break': 128,
         'mini-batch-words': 1024,
     })
