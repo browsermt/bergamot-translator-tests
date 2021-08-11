@@ -24,6 +24,8 @@ if __name__ == '__main__':
     data.update({
         'ssplit-prefix-file': args.ssplit_prefix_file,
         'ssplit-mode': 'paragraph'
+        'max-length-break': 128,
+        'mini-batch-words': 1024,
     })
 
     with open(args.config_path + '.bergamot.yml', 'w') as ofp:
