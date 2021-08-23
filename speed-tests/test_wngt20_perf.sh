@@ -56,7 +56,7 @@ ADDITIONAL_ARGS=(
 )
 
 
-${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${BRT_FILE_ARGS[@]}" "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/app/bergamot --bergamot-mode decoder $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
 WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
 echo "WallTime: $WALLTIME"
 
