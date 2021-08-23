@@ -16,23 +16,22 @@ export GEMM_PRECISION=int8shiftAlphaAll
 
 COMMON_ARGS=(
     -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
-    --vocabs
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
+    --vocabs 
+        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
         $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
     --ssplit-prefix-file
         $BRT_TEST_PACKAGE_EN_DE/nonbreaking_prefix.en
     --alignment soft
     --beam-size 1
     --skip-cost
-    --gemm-precision ${GEMM_PRECISION}
+    --gemm-precision ${GEMM_PRECISION} 
     --max-length-break 1024
     --mini-batch-words 1024
     -w 128
-    --quality $BRT_TEST_PACKAGE_EN_DE/quality_model.bin
 )
 
 # Shortlist differs in filename when using bytearray or files.
-# We support both modes bytearray format and also files.
+# We support both modes bytearray format and also files. 
 
 function brt-file-args {
     BRT_FILE_ARGS=(
