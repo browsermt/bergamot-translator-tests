@@ -42,40 +42,21 @@ if [ `nproc` -lt ${THREADS} ]; then
   exit 100
 fi;
 
-# Outputs differ on CPUs supporting AVX AVX2 or AVX512
-prefix=intgemm_8bit
-suffix=avx
-if grep -q "avx512_vnni" /proc/cpuinfo; then
-    suffix=avx512_vnni
-elif grep -q "avx512" /proc/cpuinfo; then
-    suffix=avx512
-elif grep -q "avx2" /proc/cpuinfo; then
-    suffix=avx2
-elif grep -q "ssse3" /proc/cpuinfo; then
-    suffix=ssse3
-fi
-
 
 INPUT_FILE="$BRT_DATA/wngt20/sources.shuf"
 MINI_BATCH_WORDS=1024
 
 TAG="cpu.marian-decoder-new.${THREADS}"
 
-ARGS=(
-    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
-    --vocabs 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
-    --beam-size 1 --skip-cost 
-    --quiet-translation --int8shiftAlphaAll -w 128
-    --max-length-break $MINI_BATCH_WORDS --mini-batch-words $MINI_BATCH_WORDS
-    --ssplit-mode sentence --cpu-threads ${THREADS}
+ADDITIONAL_ARGS=(
+    --quiet-translation 
+    --ssplit-mode sentence 
+    --cpu-threads ${THREADS}
     --log ${TAG}.log -o ${TAG}.translated.log
 )
 
 
-${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${BRT_FILE_ARGS[@]}" "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
 WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
 echo "WallTime: $WALLTIME"
 
@@ -84,12 +65,12 @@ if [ -d "$TAG.d" ]; then rm -rf "$TAG.d"; fi
 # Collect output
 ${BRT_TOOLS}/wngt20/restore.py ${BRT_DATA}/wngt20/keys "$TAG.d" < $TAG.translated.log &> /dev/null
 ${BRT_TOOLS}/wngt20/split-system-outputs.sh $TAG.d ${BRT_DATA}/wngt20 
-${BRT_TOOLS}/wngt20/collect-tabular-systems.sh $TAG.d  > $prefix.$suffix.out
+${BRT_TOOLS}/wngt20/collect-tabular-systems.sh $TAG.d  > ${BRT_INSTRUCTION}.out
 
-cat $prefix.$suffix.out | column -t
+cat ${BRT_INSTRUCTION}.out | column -t
 
 # Check output BLEU matches what is expected
-$BRT_TOOLS/diff.sh $prefix.$suffix.out $prefix.$suffix.expected > $prefix.$suffix.diff
+$BRT_TOOLS/diff.sh ${BRT_INSTRUCTION}.out ${BRT_INSTRUCTION}.expected > ${BRT_INSTRUCTION}.diff
 
 # Fail if WallTime is exceeding.
 if (( $(echo "$WALLTIME < $EXPECTED_MAX_TIME" | bc -l) )); then
