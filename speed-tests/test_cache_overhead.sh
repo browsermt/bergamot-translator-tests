@@ -65,15 +65,19 @@ function benchmark-parameterized-by-cache {
     echo "WallTime: $WALLTIME"
 }
 
-benchmark-parameterized-by-cache "false" $INPUT_FILE $THREADS
-benchmark-parameterized-by-cache "true" $INPUT_FILE $THREADS
+function run-exp {
+    benchmark-parameterized-by-cache "false" $INPUT_FILE $THREADS
+    benchmark-parameterized-by-cache "true" $INPUT_FILE $THREADS
 
-# Do the same, but with single worker thread => no-contention?
-# Only first 100,000 lines
-SMALLER_INPUT_FILE=$(mktemp --suffix ".100k")
+    # Do the same, but with single worker thread => no-contention?
+    # Only first 100,000 lines
+    SMALLER_INPUT_FILE="${INPUT_FILE}.100k"
 
-head -n 100000 $INPUT_FILE > $SMALLER_INPUT_FILE
-benchmark-parameterized-by-cache "true" $SMALLER_INPUT_FILE 1
-benchmark-parameterized-by-cache "false" $SMALLER_INPUT_FILE 1
+    head -n 100000 $INPUT_FILE > $SMALLER_INPUT_FILE
+    benchmark-parameterized-by-cache "true" $SMALLER_INPUT_FILE 1
+    benchmark-parameterized-by-cache "false" $SMALLER_INPUT_FILE 1
+}
 
-
+for((ITERATION=0; ITERATION < 5; ITERATION++)); do
+    run-exp
+done;
