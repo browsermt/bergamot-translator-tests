@@ -21,7 +21,6 @@ QE_ARGS=(
         ${BRT_TEST_PACKAGE_EN_DE}/nonbreaking_prefix.en
     --alignment soft
     --beam-size 1
-    --skip-cost
     --gemm-precision ${GEMM_PRECISION}
     --max-length-break 1024
     --mini-batch-words 1024
