@@ -32,14 +32,14 @@ QE_ARGS=(
 OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "quality_estimator_words")
 EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "quality_estimator_words")
 
-${BRT_MARIAN}/bergamot-test --bergamot-mode test-quality-estimator-words "${QE_ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+${BRT_MARIAN}/bergamot-test --bergamot-mode test-quality-estimator-words "${QE_ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input_quality_estimator.txt > $OUTFILE
 
 $BRT_TOOLS/diff.sh $OUTFILE $EXPECTED
 
 OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "quality_estimator_scores")
 EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "quality_estimator_scores")
 
-${BRT_MARIAN}/bergamot-test --bergamot-mode test-quality-estimator-scores "${QE_ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+${BRT_MARIAN}/bergamot-test --bergamot-mode test-quality-estimator-scores "${QE_ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input_quality_estimator.txt > $OUTFILE
 
 $BRT_TOOLS/diff-nums.py -p 0.0001 $OUTFILE $EXPECTED
 
