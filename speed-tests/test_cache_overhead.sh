@@ -48,26 +48,26 @@ INPUT_FILE="$BRT_DATA/wngt20/sources.shuf"
 
 function benchmark-parameterized-by-cache {
     CACHE_ARG="$1"
-    INPUT_FILE="$2"
-    THREADS="$3"
-    TAG="cpu.marian-decoder-new.${THREADS}.cache.${CACHE_ARG}"
+    LOCAL_INPUT_FILE="$2"
+    LOCAL_THREADS="$3"
+    TAG="cpu.marian-decoder-new.${LOCAL_THREADS}.cache.${CACHE_ARG}"
 
     ADDITIONAL_ARGS=(
         --quiet-translation # Don't want any logs here.
         --ssplit-mode sentence  # We use line based ssplit, which is faster and no-regex overhead.
-        --cpu-threads ${THREADS}  
+        --cpu-threads ${LOCAL_THREADS}  
         --log ${TAG}.log -o ${TAG}.translated.log
         --cache-translations ${CACHE_ARG}
     )
 
-    time ${BRT_MARIAN}/app/bergamot --bergamot-mode decoder $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+    time ${BRT_MARIAN}/app/bergamot --bergamot-mode decoder $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $LOCAL_INPUT_FILE > ${TAG}.translated.log;
     WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
     echo "WallTime: $WALLTIME"
 }
 
 function run-exp {
-    benchmark-parameterized-by-cache "false" $INPUT_FILE $THREADS
     benchmark-parameterized-by-cache "true" $INPUT_FILE $THREADS
+    benchmark-parameterized-by-cache "false" $INPUT_FILE $THREADS
 
     # Do the same, but with single worker thread => no-contention?
     # Only first 100,000 lines
@@ -78,6 +78,6 @@ function run-exp {
     benchmark-parameterized-by-cache "false" $SMALLER_INPUT_FILE 1
 }
 
-for((ITERATION=0; ITERATION < 5; ITERATION++)); do
+for((ITERATION=0; ITERATION < 3; ITERATION++)); do
     run-exp
 done;
