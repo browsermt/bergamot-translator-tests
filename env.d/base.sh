@@ -27,7 +27,7 @@ COMMON_EN_ET_ARGS=(
         ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
         ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
     --ssplit-prefix-file
-        ${BRT_TEST_PACKAGE_EN_DE}/nonbreaking_prefix.en
+        ${BRT_TEST_PACKAGE_EN_ET}/nonbreaking_prefix.en
     --alignment soft
     --beam-size 1
     --gemm-precision ${GEMM_PRECISION}

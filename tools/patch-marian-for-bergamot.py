@@ -16,6 +16,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-path', type=str)
     parser.add_argument('--ssplit-prefix-file', type=str, required=True)
+    parser.add_argument('--quality', type=str, required=False, default='')
     args = parser.parse_args()
     data = None
     with open(args.config_path) as fp:
@@ -27,6 +28,9 @@ if __name__ == '__main__':
         'max-length-break': 128,
         'mini-batch-words': 1024,
     })
+
+    if args.quality:
+        data.update({'quality': args.quality})
 
     with open(args.config_path + '.bergamot.yml', 'w') as ofp:
         print(yaml.dump(data, sort_keys=False), file=ofp)

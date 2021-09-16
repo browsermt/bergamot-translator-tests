@@ -64,17 +64,9 @@ python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL
 
 URL="http://data.statmt.org/bergamot/models/eten"
 MODEL="enet.student.tiny11"
-FILE="${MODEL}.tar.gz"
 OUTPUT_DIR="enet"
 
-mkdir -p ${OUTPUT_DIR}
-
-if [ -f "${FILE}" ]; then
-    echo "File ${FILE} already downloaded."
-else
-    echo "Downloading ${FILE}"
-    wget --quiet --continue ${URL}/${FILE}
-    tar xf ${FILE} -C ${OUTPUT_DIR}/
-fi
-
+download-archive $URL $MODEL $OUTPUT_DIR
+download-ssplit-sprefix-file en $OUTPUT_DIR $MODEL
 wget https://raw.githubusercontent.com/felipesantosk/students/quality_model/eten/enet.quality.lr/quality_model.bin -O ${OUTPUT_DIR}/${MODEL}/quality_model.bin || exit 1
+python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml --ssplit-prefix-file nonbreaking_prefix.en --quality quality_model.bin
