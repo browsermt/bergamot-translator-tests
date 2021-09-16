@@ -22,19 +22,8 @@ COMMON_ARGS=(
 BRT_TEST_PACKAGE_EN_ET=${BRT_MODELS}/enet/enet.student.tiny11
 
 COMMON_EN_ET_ARGS=(
-    -m ${BRT_TEST_PACKAGE_EN_ET}/model.intgemm.alphas.bin
-    --vocabs
-        ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
-        ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
-    --ssplit-prefix-file
-        ${BRT_TEST_PACKAGE_EN_ET}/nonbreaking_prefix.en
-    --alignment soft
-    --beam-size 1
-    --gemm-precision ${GEMM_PRECISION}
-    --max-length-break 1024
-    --mini-batch-words 1024
-    -w 128
-    --quality ${BRT_TEST_PACKAGE_EN_ET}/quality_model.bin
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_ET/config.intgemm8bitalpha.yml.bergamot.yml"
+    --cpu-threads 4
 )
 
 # Shortlist differs in filename when using bytearray or files.
