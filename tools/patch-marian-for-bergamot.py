@@ -20,7 +20,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     data = None
     with open(args.config_path) as fp:
-        data = yaml.load(fp)
+        data = yaml.load(fp, Loader=yaml.FullLoader)
 
     data.update({
         'ssplit-prefix-file': args.ssplit_prefix_file,
@@ -30,7 +30,10 @@ if __name__ == '__main__':
     })
 
     if args.quality:
-        data.update({'quality': args.quality})
+        data.update({
+            'quality': args.quality, 
+            'skip-cost': False
+        })
 
     with open(args.config_path + '.bergamot.yml', 'w') as ofp:
         print(yaml.dump(data, sort_keys=False), file=ofp)
