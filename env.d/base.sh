@@ -19,7 +19,6 @@ COMMON_ARGS=(
     --cpu-threads 4 
 )
 
-BRT_TEST_PACKAGE_EN_ET=${BRT_MODELS}/enet/enet.student.tiny11
 
 COMMON_EN_ET_ARGS=(
     --model-config-paths "$BRT_TEST_PACKAGE_EN_ET/config.intgemm8bitalpha.yml.bergamot.yml"

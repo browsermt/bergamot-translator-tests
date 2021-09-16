@@ -36,6 +36,7 @@ export BRT_MODELS=$BRT_ROOT/models
 export BRT_TEST_PACKAGE_EN_DE=$BRT_MODELS/deen/ende.student.tiny.for.regression.tests
 export BRT_TEST_PACKAGE_EN_ES=$BRT_MODELS/enes/enes.student.tiny11
 export BRT_TEST_PACKAGE_ES_EN=$BRT_MODELS/esen/esen.student.tiny11
+export BRT_TEST_PACKAGE_EN_ET=$BRT_MODELS/enet/enet.student.tiny11
 export BRT_DATA=$BRT_ROOT/data
 
 
