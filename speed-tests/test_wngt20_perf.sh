@@ -62,20 +62,16 @@ MINI_BATCH_WORDS=1024
 TAG="cpu.marian-decoder-new.${THREADS}"
 
 ARGS=(
-    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
-    --vocabs 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
-    --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t 50 50
-    --beam-size 1 --skip-cost 
-    --quiet-translation --int8shiftAlphaAll -w 128
-    --max-length-break $MINI_BATCH_WORDS --mini-batch-words $MINI_BATCH_WORDS
-    --ssplit-mode sentence --cpu-threads ${THREADS}
-    --log ${TAG}.log -o ${TAG}.translated.log
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
+    --cpu-threads ${THREADS}
 )
 
 
-${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" \
+    < $INPUT_FILE \
+    > ${TAG}.translated.log \
+    2> ${TAG}.log ;
+
 WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
 echo "WallTime: $WALLTIME"
 

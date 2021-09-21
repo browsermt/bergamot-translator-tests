@@ -16,7 +16,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-path', type=str)
     parser.add_argument('--ssplit-prefix-file', type=str, required=True)
+    parser.add_argument('--ssplit-mode', type=str, required=False, default='paragraph')
     parser.add_argument('--quality', type=str, required=False, default='')
+    parser.add_argument('--max-length-break', type=int, required=False, default=128)
+    parser.add_argument('--mini-batch-words', type=int, required=False, default=1024)
+    parser.add_argument('--output-suffix', type=str, required=False, default="bergamot.yml")
+
     args = parser.parse_args()
     data = None
     with open(args.config_path) as fp:
@@ -24,9 +29,9 @@ if __name__ == '__main__':
 
     data.update({
         'ssplit-prefix-file': args.ssplit_prefix_file,
-        'ssplit-mode': 'paragraph',
-        'max-length-break': 128,
-        'mini-batch-words': 1024,
+        'ssplit-mode': args.ssplit_mode,
+        'max-length-break': args.max_length_break,
+        'mini-batch-words': args.mini_batch_words,
     })
 
     if args.quality:
@@ -35,7 +40,7 @@ if __name__ == '__main__':
             'skip-cost': False
         })
 
-    with open(args.config_path + '.bergamot.yml', 'w') as ofp:
+    with open(args.config_path + '.' + args.output_suffix, 'w') as ofp:
         print(yaml.dump(data, sort_keys=False), file=ofp)
 
 

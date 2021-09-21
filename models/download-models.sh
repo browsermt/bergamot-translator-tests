@@ -42,6 +42,12 @@ test -f ${OUTPUT_DIR}/${MODEL}/lex.s2t || exit 1
 download-ssplit-prefix-file en $OUTPUT_DIR $MODEL
 python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml --ssplit-prefix-file nonbreaking_prefix.en
 
+# One additional configuration for decoder
+python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml \
+    --ssplit-prefix-file nonbreaking_prefix.en --ssplit-mode sentence \
+    --max-length-break 1024 --mini-batch-words 1024 \
+    --output-suffix "decoder.yml"
+
 # en->es
 
 URL="http://data.statmt.org/bergamot/models/esen/"
