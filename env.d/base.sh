@@ -15,37 +15,14 @@ export GEMM_PRECISION=int8shiftAlphaAll
 # having to repeat and possible inconsitency over several scripts.
 
 COMMON_ARGS=(
-    -m $BRT_TEST_PACKAGE_EN_DE/model.intgemm.alphas.bin
-    --vocabs 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm 
-        $BRT_TEST_PACKAGE_EN_DE/vocab.deen.spm
-    --ssplit-prefix-file
-        $BRT_TEST_PACKAGE_EN_DE/nonbreaking_prefix.en
-    --alignment soft
-    --beam-size 1
-    --skip-cost
-    --gemm-precision ${GEMM_PRECISION} 
-    --max-length-break 1024
-    --mini-batch-words 1024
-    -w 128
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
+    --cpu-threads 4 
 )
 
-BRT_TEST_PACKAGE_EN_ET=${BRT_MODELS}/enet/enet.student.tiny11
 
 COMMON_EN_ET_ARGS=(
-    -m ${BRT_TEST_PACKAGE_EN_ET}/model.intgemm.alphas.bin
-    --vocabs
-        ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
-        ${BRT_TEST_PACKAGE_EN_ET}/vocab.eten.spm
-    --ssplit-prefix-file
-        ${BRT_TEST_PACKAGE_EN_DE}/nonbreaking_prefix.en
-    --alignment soft
-    --beam-size 1
-    --gemm-precision ${GEMM_PRECISION}
-    --max-length-break 1024
-    --mini-batch-words 1024
-    -w 128
-    --quality ${BRT_TEST_PACKAGE_EN_ET}/quality_model.bin
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_ET/config.intgemm8bitalpha.yml.bergamot.yml"
+    --cpu-threads 4
 )
 
 # Shortlist differs in filename when using bytearray or files.
@@ -53,18 +30,15 @@ COMMON_EN_ET_ARGS=(
 
 function brt-file-args {
     BRT_FILE_ARGS=(
-        "${COMMON_ARGS[@]}"
-        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-        --bytearray false
+        "${COMMON_ARGS[@]}" 
+        # --bytearray false
     )
     echo "${BRT_FILE_ARGS[@]}";
 }
 
 function brt-bytearray-args {
     BRT_BYTEARRAY_ARGS=(
-        "${COMMON_ARGS[@]}"
-        --shortlist $BRT_TEST_PACKAGE_EN_DE/lex.s2t.bin 50 50
-        --bytearray true
+        "${COMMON_ARGS[@]}" --bytearray
     )
     echo "${BRT_BYTEARRAY_ARGS[@]}"
 }
