@@ -48,15 +48,17 @@ MINI_BATCH_WORDS=1024
 
 TAG="cpu.marian-decoder-new.${THREADS}"
 
-ADDITIONAL_ARGS=(
-    --quiet-translation 
-    --ssplit-mode sentence 
+ARGS=(
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
     --cpu-threads ${THREADS}
-    --log ${TAG}.log -o ${TAG}.translated.log
 )
 
 
-${BRT_MARIAN}/app/bergamot --bergamot-mode decoder $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" \
+    < $INPUT_FILE \
+    > ${TAG}.translated.log \
+    2> ${TAG}.log ;
+
 WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
 echo "WallTime: $WALLTIME"
 
