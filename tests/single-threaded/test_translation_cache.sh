@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for translation-cache
 # AUTHOR: jerinphilip 
-# TAGS: full, wasm, native
+# TAGS: full, wasm
 #####################################################################
 
 set -eo pipefail;
