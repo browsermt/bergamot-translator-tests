@@ -12,7 +12,7 @@ set -eo pipefail;
 OUTFILE=$BRT_DATA/quality-estimator/$(brt_outfile "words")
 EXPECTED=$BRT_DATA/quality-estimator/$(brt_expected "words")
 
-${BRT_MARIAN}/bergamot-test --bergamot-mode test-quality-estimator-words ${BRT_EN_ET_ARGS} < ${BRT_DATA}/quality-estimator/input.txt > $OUTFILE
+${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-quality-estimator-words ${BRT_EN_ET_ARGS} < ${BRT_DATA}/quality-estimator/input.txt > $OUTFILE
 
 $BRT_TOOLS/diff.sh $OUTFILE $EXPECTED
 

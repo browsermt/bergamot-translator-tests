@@ -35,7 +35,7 @@ function run-exp {
         --cache-translations ${CACHE_ARG}
     )
 
-    ${BRT_MARIAN}/bergamot-test --bergamot-mode test-benchmark-edit-workflow $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < ${INPUT_FILE} > ${TAG}.translated.log;
+    ${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-benchmark-edit-workflow $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < ${INPUT_FILE} > ${TAG}.translated.log;
 }
 
 run-exp "true"

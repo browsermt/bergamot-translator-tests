@@ -52,5 +52,5 @@ ADDITIONAL_ARGS=(
     --log ${TAG}.log -o ${TAG}.translated.log
 )
 
-${BRT_MARIAN}/bergamot-test --bergamot-mode test-cache-storage-growth $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-cache-storage-growth $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
 
