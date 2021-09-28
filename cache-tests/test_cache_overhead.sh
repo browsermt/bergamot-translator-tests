@@ -20,15 +20,6 @@
 
 set -eo pipefail;
 
-# Skip if requirements are not met
-if [ ! $BRT_MARIAN_USE_MKL ]; then
-    echo "Bergamot translator is not compiled with CPU" 1>&2
-    exit 100
-elif ! grep -q -e "avx" -e "ssse3" /proc/cpuinfo  ; then
-    echo "Your CPU does not support AVX or SSSE3, which is required" 1>&2
-    exit 100
-fi
-
 THREADS=${BRT_THREADS:-16}
 EXPECTED_MAX_TIME=${BRT_EXPECTED_MAXTIME:-2500.00}
 

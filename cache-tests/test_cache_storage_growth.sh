@@ -45,13 +45,15 @@ fi;
 
 INPUT_FILE="$BRT_DATA/wngt20/sources.shuf"
 TAG="cpu.marian-decoder-new.${THREADS}.cache.true"
-ADDITIONAL_ARGS=(
-    --quiet-translation # Don't want any logs here.
-    --ssplit-mode sentence  # We use line based ssplit, which is faster and no-regex overhead.
+
+CACHE_ARGS=(
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
     --cpu-threads ${THREADS}  
     --cache-translations=1
-    --log ${TAG}.log -o ${TAG}.translated.log
 )
 
-${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-cache-storage-growth $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $INPUT_FILE > ${TAG}.translated.log;
+${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-cache-storage-growth "${CACHE_ARGS[@]}" \
+    < $INPUT_FILE \
+    > ${TAG}.translated.log \
+    2> $TAG.log;
 
