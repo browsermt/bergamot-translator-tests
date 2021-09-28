@@ -49,6 +49,7 @@ ADDITIONAL_ARGS=(
     --quiet-translation # Don't want any logs here.
     --ssplit-mode sentence  # We use line based ssplit, which is faster and no-regex overhead.
     --cpu-threads ${THREADS}  
+    --cache-translations=1
     --log ${TAG}.log -o ${TAG}.translated.log
 )
 

@@ -52,30 +52,28 @@ function benchmark-parameterized-by-cache {
     LOCAL_THREADS="$3"
     TAG="cpu.marian-decoder-new.${LOCAL_THREADS}.cache.${CACHE_ARG}"
 
-    ADDITIONAL_ARGS=(
-        --quiet-translation # Don't want any logs here.
-        --ssplit-mode sentence  # We use line based ssplit, which is faster and no-regex overhead.
+    CACHE_ARGS=(
+        --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
         --cpu-threads ${LOCAL_THREADS}  
-        --log ${TAG}.log -o ${TAG}.translated.log
-        --cache-translations ${CACHE_ARG}
+        --cache-translations=${CACHE_ARG}
     )
 
-    time ${BRT_MARIAN}/app/bergamot --bergamot-mode decoder $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < $LOCAL_INPUT_FILE > ${TAG}.translated.log;
+    time ${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${CACHE_ARGS[@]}" < $LOCAL_INPUT_FILE > ${TAG}.translated.log 2> ${TAG}.log ;
     WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
     echo "WallTime: $WALLTIME"
 }
 
 function run-exp {
-    benchmark-parameterized-by-cache "true" $INPUT_FILE $THREADS
-    benchmark-parameterized-by-cache "false" $INPUT_FILE $THREADS
+    benchmark-parameterized-by-cache 1 $INPUT_FILE $THREADS
+    benchmark-parameterized-by-cache 0 $INPUT_FILE $THREADS
 
     # Do the same, but with single worker thread => no-contention?
     # Only first 100,000 lines
     SMALLER_INPUT_FILE="${INPUT_FILE}.100k"
 
     head -n 100000 $INPUT_FILE > $SMALLER_INPUT_FILE
-    benchmark-parameterized-by-cache "true" $SMALLER_INPUT_FILE 1
-    benchmark-parameterized-by-cache "false" $SMALLER_INPUT_FILE 1
+    benchmark-parameterized-by-cache 1 $SMALLER_INPUT_FILE 1
+    benchmark-parameterized-by-cache 0 $SMALLER_INPUT_FILE 1
 }
 
 for((ITERATION=0; ITERATION < 3; ITERATION++)); do

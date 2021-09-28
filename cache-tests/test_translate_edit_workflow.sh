@@ -32,11 +32,11 @@ function run-exp {
     ADDITIONAL_ARGS=(
         --cpu-threads ${THREADS}
         --log cpu.edit-workflow.${THREADS}.cache.${CACHE_ARG}.log 
-        --cache-translations ${CACHE_ARG}
+        --cache-translations=${CACHE_ARG}
     )
 
     ${BRT_MARIAN}/bergamot-test-native --bergamot-mode test-benchmark-edit-workflow $BRT_FILE_ARGS "${ADDITIONAL_ARGS[@]}" < ${INPUT_FILE} > ${TAG}.translated.log;
 }
 
-run-exp "true"
-run-exp "false"
+run-exp 0
+run-exp 1
