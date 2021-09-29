@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage (example on var): 
-# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_wngt20_perf.sh
+# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_cache_storage_growth.sh
 # 
 # Uses the following environment variables additionally.
 # TIMEOUT: 
@@ -11,12 +11,11 @@
 # BRT_THREADS:
 #    Number of marian-worker threads to spawn on a test-machine.
 #   
-# BRT_EXPECTED_MAXTIME:
-#   Parameter needs to be set with a reasonable value tuning for hardware.
-#   Repeated development shouldn't compromise the existing speed.
-# 
-# Computes BLEU/performance on WNGT20 continuously to ensure no quality issues
-# arise in continuous development.
+# One run on WNGT20 1M sentences to translate printing logs of cache-stats
+# every 1000 sentences to study cache-growth. How many records are evicted, how
+# many hits how many misses? What is the average case storage capacity? (We
+# mention size in MegaBytes, how does this translate to sentences and subject
+# to the translation intermediate items we cache?)
 
 set -eo pipefail;
 

@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# Usage (example on var): 
+# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_translate_edit_workflow.sh
+# 
+# Uses the following environment variables additionally.
+# TIMEOUT: 
+#    Normal regression-tests have a timeout of 5m, however WNGT20 takes longer
+#    even with many more cores.
+# 
+# BRT_THREADS:
+#    Number of marian-worker threads to spawn on a test-machine.
+#
+# Tests cache with a scenario where there are a lot of hits. This serves too purposes:
+#
+# 1. This is threading/cache intensive. Deadlocks, races and other issues of
+# the sort will appear in this test.
+# 2. Allows to compare how an edit use-case works with or without cache. Cache
+# can provide speedups for outbound translation where people type continuously
+# and update a textbox of translation corresponding realtime.
+   
+
 set -eo pipefail;
 
 THREADS=${BRT_THREADS:-16}

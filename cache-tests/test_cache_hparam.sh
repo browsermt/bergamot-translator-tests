@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage (example on var): 
-# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_wngt20_perf.sh
+# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_cache_hparam.sh
 # 
 # Uses the following environment variables additionally.
 # TIMEOUT: 
@@ -11,12 +11,10 @@
 # BRT_THREADS:
 #    Number of marian-worker threads to spawn on a test-machine.
 #   
-# BRT_EXPECTED_MAXTIME:
-#   Parameter needs to be set with a reasonable value tuning for hardware.
-#   Repeated development shouldn't compromise the existing speed.
-# 
-# Computes BLEU/performance on WNGT20 continuously to ensure no quality issues
-# arise in continuous development.
+# Just runs multiple runs on the hyperparameter cache-buckets, requested by
+# @XapaJIaMnu during PR review. This runs on WNGT20 with BRT_THREADS number of
+# threads. Reports time for each run between 1 thread and ${BRT_THREADS} in
+# increments of 1.
 
 set -eo pipefail;
 
@@ -42,7 +40,7 @@ function benchmark-parameterized-by-cache {
     LOCAL_INPUT_FILE="$2"
     LOCAL_THREADS="$3"
     NUM_BUCKETS="$4"
-    TAG="cache-hparam.${LOCAL_THREADS}.cache.${CACHE_ARG}"
+    TAG="cache-hparam.${LOCAL_THREADS}.cache.${CACHE_ARG}.buckets.${NUM_BUCKETS}"
 
     CACHE_ARGS=(
         --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
@@ -57,7 +55,7 @@ function benchmark-parameterized-by-cache {
 }
 
 
-for NUM_BUCKETS in `seq 1 1 40`; do
+for NUM_BUCKETS in $(seq 1 1 ${BRT_THREADS}); do
     #echo ${NUM_BUCKETS}
     benchmark-parameterized-by-cache 1 $INPUT_FILE $THREADS $NUM_BUCKETS;
 done;

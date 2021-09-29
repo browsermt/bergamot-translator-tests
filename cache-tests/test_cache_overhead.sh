@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Usage (example on var): 
-# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_wngt20_perf.sh
+# MARIAN=../bergamot-translator/build TIMEOUT=45m BRT_THREADS=48 BRT_EXPECTED_MAXTIME=500 ./run_brt.sh speed-tests/test_cache_overhead.sh
 # 
 # Uses the following environment variables additionally.
 # TIMEOUT: 
@@ -11,12 +11,13 @@
 # BRT_THREADS:
 #    Number of marian-worker threads to spawn on a test-machine.
 #   
-# BRT_EXPECTED_MAXTIME:
-#   Parameter needs to be set with a reasonable value tuning for hardware.
-#   Repeated development shouldn't compromise the existing speed.
+# Computes runtimes for different setting of cache.
 # 
-# Computes BLEU/performance on WNGT20 continuously to ensure no quality issues
-# arise in continuous development.
+#   1. BRT_THREADS number of threads, WNGT20 1M lines. With/Without Cache.
+#   2. 1 thread, WNGT20 100k first lines. With/Without cache.
+# 
+# The above allows to assess and reason with the overhead of having cache in a
+# multithreaded setting and a single-threaded setting.
 
 set -eo pipefail;
 
