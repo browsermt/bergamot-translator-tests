@@ -45,6 +45,8 @@ function benchmark-parameterized-by-cache {
     TAG="cache-overhead.${LOCAL_THREADS}.cache.${CACHE_ARG}"
 
     CACHE_ARGS=(
+        # .decoder contains ssplit newline split args, which makes runs faster. If
+        # running on WNGT20, it is safe to use the decoder.yml
         --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
         --cpu-threads ${LOCAL_THREADS}  
         --cache-translations=${CACHE_ARG}

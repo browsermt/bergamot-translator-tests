@@ -16,6 +16,9 @@
 # many hits how many misses? What is the average case storage capacity? (We
 # mention size in MegaBytes, how does this translate to sentences and subject
 # to the translation intermediate items we cache?)
+# 
+# Outputs a JSON into stdout, which can later be consumed through an external
+# some-script (original author prefers python).
 
 set -eo pipefail;
 
@@ -46,6 +49,9 @@ INPUT_FILE="$BRT_DATA/wngt20/sources.shuf"
 TAG="cache-growth.${THREADS}.cache.true"
 
 CACHE_ARGS=(
+    # .decoder contains ssplit newline split args, which makes runs faster. If
+    # running on WNGT20, it is safe to use the decoder.yml
+
     --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
     --cpu-threads ${THREADS}  
     --cache-translations=1
