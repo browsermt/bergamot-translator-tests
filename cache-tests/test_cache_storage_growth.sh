@@ -44,10 +44,10 @@ fi;
 
 
 INPUT_FILE="$BRT_DATA/wngt20/sources.shuf"
-TAG="cpu.marian-decoder-new.${THREADS}.cache.true"
+TAG="cache-growth.${THREADS}.cache.true"
 
 CACHE_ARGS=(
-    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
+    --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.decoder.yml"
     --cpu-threads ${THREADS}  
     --cache-translations=1
 )
