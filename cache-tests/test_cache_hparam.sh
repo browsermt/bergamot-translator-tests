@@ -57,7 +57,7 @@ function benchmark-parameterized-by-cache {
 }
 
 
-for NUM_BUCKETS in `seq 1 100 1001`; do
+for NUM_BUCKETS in `seq 1 1 40`; do
     #echo ${NUM_BUCKETS}
     benchmark-parameterized-by-cache 1 $INPUT_FILE $THREADS $NUM_BUCKETS;
 done;
