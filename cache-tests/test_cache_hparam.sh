@@ -49,7 +49,7 @@ function benchmark-parameterized-by-cache {
         --cache-buckets ${NUM_BUCKETS}
     )
 
-    time ${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${CACHE_ARGS[@]}" < $LOCAL_INPUT_FILE > ${TAG}.translated.log 2> ${TAG}.log ;
+    time ${BRT_MARIAN}/bergamot-test-native --bergamot-mode decoder "${CACHE_ARGS[@]}" < $LOCAL_INPUT_FILE > ${TAG}.translated.log 2> ${TAG}.log ;
     WALLTIME=$(tail -n1 -v ${TAG}.log | grep -o "[0-9\.]*s" | sed 's/s//g')
     echo "WallTime: $WALLTIME"
 }

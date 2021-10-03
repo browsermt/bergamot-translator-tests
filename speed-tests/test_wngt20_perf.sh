@@ -54,7 +54,7 @@ ARGS=(
 )
 
 
-${BRT_MARIAN}/app/bergamot --bergamot-mode decoder "${ARGS[@]}" \
+${BRT_MARIAN}/bergamot-test-native --bergamot-mode decoder "${ARGS[@]}" \
     < $INPUT_FILE \
     > ${TAG}.translated.log \
     2> ${TAG}.log ;
