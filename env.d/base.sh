@@ -26,9 +26,8 @@ WASM_ARGS=(
 )
 
 
-COMMON_EN_ET_ARGS=(
+EN_ET_ARGS=(
     --model-config-paths "$BRT_TEST_PACKAGE_EN_ET/config.intgemm8bitalpha.yml.bergamot.yml"
-    --cpu-threads 4
 )
 
 # Shortlist differs in filename when using bytearray or files.
@@ -36,5 +35,6 @@ COMMON_EN_ET_ARGS=(
 
 export BRT_NATIVE_ARGS=$(echo "${NATIVE_ARGS[@]}")
 export BRT_WASM_ARGS=$(echo "${WASM_ARGS[@]}")
-export BRT_EN_ET_ARGS=$(echo "${COMMON_EN_ET_ARGS[@]}")
+export BRT_EN_ET_ARGS=$(echo "${EN_ET_ARGS[@]} --cpu-threads 4")
+export BRT_EN_ET_WASM_ARGS=$(echo "${EN_ET_ARGS[@]}")
 
