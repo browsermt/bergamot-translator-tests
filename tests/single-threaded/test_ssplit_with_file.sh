@@ -3,7 +3,7 @@
 #####################################################################################
 # SUMMARY: Run tests for ssplit, with data file containing a few non-breaking prefixes.
 # AUTHOR: jerinphilip 
-# TAGS: full, wasm
+# TAGS: full, native
 #####################################################################################
 
 set -eo pipefail;

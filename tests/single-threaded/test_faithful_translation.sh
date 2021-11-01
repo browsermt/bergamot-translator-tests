@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for faithful-translation
 # AUTHOR: jerinphilip 
-# TAGS: full, wasm
+# TAGS: full, native
 #####################################################################
 
 set -eo pipefail;

@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for service-cli
 # AUTHOR: felipesantosk
-# TAGS: full, wasm
+# TAGS: full, native
 #####################################################################
 
 set -eo pipefail;
