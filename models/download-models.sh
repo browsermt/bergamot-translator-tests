@@ -17,7 +17,7 @@ function download-archive {
         wget --quiet --continue $URL/${FILE}
         tar xf $FILE -C $OUTPUT_DIR/
         # wasm build doesnt support zipped input 
-        ( cd ${OUTPUT_DIR}/${MODEL} && gunzip -f lex.s2t.gz )
+        ( cd ${OUTPUT_DIR}/${MODEL} && if [ -f lex.s2t.gz ]; then gunzip -f lex.s2t.gz; fi )
     fi
 }
 
