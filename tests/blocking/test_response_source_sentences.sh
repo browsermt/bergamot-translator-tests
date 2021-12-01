@@ -11,7 +11,7 @@ set -eo pipefail;
 # Generate output specific to hardware.
 OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "response-source-sentences")
 EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "response-source-sentences")
-${BRT_MARIAN}/tests/wasm --bergamot-mode test-response-source-sentences ${BRT_WASM_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
+${BRT_MARIAN}/tests/blocking --bergamot-mode test-response-source-sentences ${BRT_WASM_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
 
 # Source sentences are deterministic.
 $BRT_TOOLS/diff.sh $OUTFILE $EXPECTED 
