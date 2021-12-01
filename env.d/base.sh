@@ -14,15 +14,13 @@ export GEMM_PRECISION=int8shiftAlphaAll
 # Common args configured for bergamot-translator. Grouping these here prevents
 # having to repeat and possible inconsitency over several scripts.
 
-NATIVE_ARGS=(
+ASYNC_ARGS=(
     --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
     --cpu-threads 4 
 )
 
-# WASM does not have the cpu-threads argument.
-WASM_ARGS=(
+BLOCKING_ARGS=(
     --model-config-paths "$BRT_TEST_PACKAGE_EN_DE/config.intgemm8bitalpha.yml.bergamot.yml"
-    --bytearray # WASM always expected to use the byte-array path
 )
 
 
@@ -33,8 +31,9 @@ EN_ET_ARGS=(
 # Shortlist differs in filename when using bytearray or files.
 # We support both modes bytearray format and also files. 
 
-export BRT_NATIVE_ARGS=$(echo "${NATIVE_ARGS[@]}")
-export BRT_WASM_ARGS=$(echo "${WASM_ARGS[@]}")
+export BRT_ASYNC_ARGS=$(echo "${ASYNC_ARGS[@]}")
+export BRT_BLOCKING_ARGS=$(echo "${BLOCKING_ARGS[@]}")
+export BRT_WASM_ARGS=$(echo "${BLOCKING_ARGS[@]}")
 export BRT_EN_ET_ARGS=$(echo "${EN_ET_ARGS[@]} --cpu-threads 4")
-export BRT_EN_ET_WASM_ARGS=$(echo "${EN_ET_ARGS[@]}")
+export BRT_EN_ET_BLOCKING_ARGS=$(echo "${EN_ET_ARGS[@]}")
 
