@@ -11,7 +11,7 @@ set -eo pipefail;
 # Generate output specific to hardware.
 OUTFILE=${BRT_DATA}/simple/bergamot/$(brt_outfile "faithful-translation")
 EXPECTED=${BRT_DATA}/simple/bergamot/$(brt_expected "faithful-translation")
-${BRT_MARIAN}/app/bergamot --bergamot-mode native ${BRT_NATIVE_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+${BRT_MARIAN}/app/bergamot --bergamot-mode native ${BRT_ASYNC_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then

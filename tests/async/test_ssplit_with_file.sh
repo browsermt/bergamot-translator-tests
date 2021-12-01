@@ -11,15 +11,9 @@ set -eo pipefail;
 # Generate output specific to hardware.
 OUTFILE=$BRT_DATA/ssplit/sample.en.out
 EXPECTED=$BRT_DATA/ssplit/sample.en.expected
-${BRT_MARIAN}/tests/async --bergamot-mode test-response-source-sentences ${BRT_NATIVE_ARGS} < ${BRT_DATA}/ssplit/sample.en > $OUTFILE 
+${BRT_MARIAN}/tests/async --bergamot-mode test-response-source-sentences ${BRT_ASYNC_ARGS} < ${BRT_DATA}/ssplit/sample.en > $OUTFILE 
 
 # Source sentences are deterministic.
 $BRT_TOOLS/diff.sh $OUTFILE $EXPECTED 
 
-OUTFILE=$BRT_DATA/ssplit/sample.en.bytearray.out
-EXPECTED=$BRT_DATA/ssplit/sample.en.expected
-${BRT_MARIAN}/tests/async --bergamot-mode test-response-source-sentences ${BRT_NATIVE_ARGS} --bytearray < ${BRT_DATA}/ssplit/sample.en > $OUTFILE 
-
-# Source sentences are deterministic.
-$BRT_TOOLS/diff.sh $OUTFILE $EXPECTED 
 exit 0

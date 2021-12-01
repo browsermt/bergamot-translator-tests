@@ -11,7 +11,7 @@ set -eo pipefail;
 # Generate output specific to hardware.
 OUTFILE=$BRT_DATA/simple/bergamot/$(brt_outfile "response-target-sentences")
 EXPECTED=$BRT_DATA/simple/bergamot/$(brt_expected "response-target-sentences")
-${BRT_MARIAN}/tests/blocking --bergamot-mode test-response-target-sentences ${BRT_WASM_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
+${BRT_MARIAN}/tests/blocking --bergamot-mode test-response-target-sentences ${BRT_BLOCKING_ARGS} < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE 
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then
