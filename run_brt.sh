@@ -106,7 +106,7 @@ source "env.d/base.sh"
 # };
 
 declare -a BRT_EXPORTS
-BRT_INSTRUCTION_CODE=$($BRT_MARIAN/intgemm-resolve)
+BRT_INSTRUCTION_CODE=$($BRT_MARIAN/tests/intgemm-resolve)
 case $BRT_INSTRUCTION_CODE in
     0) 
         echo "Unsupported hardware"
