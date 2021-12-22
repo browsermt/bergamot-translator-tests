@@ -32,6 +32,7 @@ if __name__ == '__main__':
         'ssplit-mode': args.ssplit_mode,
         'max-length-break': args.max_length_break,
         'mini-batch-words': args.mini_batch_words,
+        'alignment': 'soft',
     })
 
     if args.quality:
