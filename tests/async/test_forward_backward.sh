@@ -4,7 +4,7 @@
 #####################################################################
 # SUMMARY: Run tests for faithful-translation
 # AUTHOR: jerinphilip 
-# TAGS: full, native
+# TAGS: full, async
 #####################################################################
 
 set -eo pipefail;
@@ -19,7 +19,7 @@ ARGS=(
 # Generate output specific to hardware.
 OUTFILE=${BRT_DATA}/simple/bergamot/$(brt_outfile "forward-backward")
 EXPECTED=${BRT_DATA}/simple/bergamot/$(brt_expected "forward-backward")
-${BRT_MARIAN}/bergamot-test --bergamot-mode test-forward-backward "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
+${BRT_MARIAN}/tests/async --bergamot-mode test-forward-backward "${ARGS[@]}" < ${BRT_DATA}/simple/bergamot/input.txt > $OUTFILE
 
 # Compare with output specific to hardware.
 if [[ "$BRT_EVAL_MODE" == "approx" ]]; then

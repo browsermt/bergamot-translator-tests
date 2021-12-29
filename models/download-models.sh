@@ -2,6 +2,8 @@
 
 # Model download
 
+set -euo pipefail
+
 function download-archive {
     URL=$1
     MODEL=$2
@@ -15,7 +17,7 @@ function download-archive {
         wget --quiet --continue $URL/${FILE}
         tar xf $FILE -C $OUTPUT_DIR/
         # wasm build doesnt support zipped input 
-        ( cd ${OUTPUT_DIR}/${MODEL} && gunzip -f lex.s2t.gz )
+        ( cd ${OUTPUT_DIR}/${MODEL} && if [ -f lex.s2t.gz ]; then gunzip -f lex.s2t.gz; fi )
     fi
 }
 
@@ -73,6 +75,6 @@ MODEL="enet.student.tiny11"
 OUTPUT_DIR="enet"
 
 download-archive $URL $MODEL $OUTPUT_DIR
-download-ssplit-sprefix-file en $OUTPUT_DIR $MODEL
+download-ssplit-prefix-file en $OUTPUT_DIR $MODEL
 wget https://raw.githubusercontent.com/felipesantosk/students/quality_model/eten/enet.quality.lr/quality_model.bin -O ${OUTPUT_DIR}/${MODEL}/quality_model.bin || exit 1
 python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml --ssplit-prefix-file nonbreaking_prefix.en --quality quality_model.bin
