@@ -3,7 +3,7 @@
 #####################################################################
 # SUMMARY: Run tests for translation-cache
 # AUTHOR: jerinphilip 
-# TAGS: full, native
+# TAGS: full, blocking
 #####################################################################
 
 set -eo pipefail;
