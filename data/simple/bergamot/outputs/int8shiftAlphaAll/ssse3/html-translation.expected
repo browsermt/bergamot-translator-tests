@@ -15,7 +15,7 @@
     <textarea id="remarks">This text should not be translated.</textarea></form><code>Nor should this <strong>bit of code</strong> even when <code>nested</code> like this.</code><p>Aber dieser <wbr>Absatz sollte übersetzt werden. Und Absatz sollte nicht zwei Worte sein.</p>
     
     <!-- Comments are allowed. In the following sentence <br> should cause the
-         paragraph to be translated as two sentences instead of one.--><p>Dieser Satz beginnt mit <br>transatlantischen Gewässern sind kalt.</p>
+         paragraph to be translated as two sentences instead of one.--><p>Dieser Satz beginnt mit Trans<br>Das atlantische Wasser ist kalt.</p>
     <p>Dieser Satz beginnt mit <b>transatlantischen</b> Gewässern ist kalt.</p>
     <p>Ich <b>fahre gerne</b> <i>mein Auto</i>.</p></div>
 
