@@ -5,9 +5,7 @@ set -eo pipefail;
 FOLDER="$1"
 WNGT_DATA="$2"
 
-# Starting 2.0.0 sacreblue defaults to JSON output. It's easier to work with
-# older output by passing -f text
-SACREBLEU="python3 -m sacrebleu -f text" 
+SACREBLEU="python3 -m sacrebleu" 
 
 for c in federal emea tatoeba; do 
     for i in $FOLDER/$c; do 
