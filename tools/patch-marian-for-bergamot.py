@@ -38,7 +38,7 @@ if __name__ == '__main__':
     if args.ssplit_prefix_file:
         data.update({
             'ssplit-prefix-file': args.ssplit_prefix_file,
-        }
+        })
 
     if args.quality:
         data.update({
