@@ -7,7 +7,7 @@
     <p>Das Bergamot-Projekt wird die maschinelle Übersetzung von Client-Side-Maschinen in einem Webbrowser hinzufügen und verbessern.</p>
     <p>Im Gegensatz zu aktuellen Cloud-basierten Optionen, die direkt auf den Maschinen der Nutzer laufen, befähigt die Bürger, ihre Privatsphäre zu bewahren und erhöht die Verbreitung von Sprachtechnologien in Europa in verschiedenen Sektoren, die Vertraulichkeit erfordern. Freie Software, die mit einem Open-Source-Webbrowser wie Mozilla Firefox integriert ist, wird die Annahme von Bottom-up durch Nicht-Experten ermöglichen, was zu Kosteneinsparungen für private und öffentliche Nutzer führt, die sonst Übersetzungen beschaffen oder einsprachig arbeiten würden.</p>
     <p>Bergamot ist ein Konsortium, das von der Universität Edinburgh mit den Partnern der Charles University in Prag, der Universität Sheffield, der Universität Tartu und Mozilla koordiniert wird.</p>
-
+    
         <form method="post"><label for="remarks">Irgendwelche Bemerkungen?</label>
         
     
@@ -15,7 +15,7 @@
     <textarea id="remarks">This text should not be translated.</textarea></form><code>Nor should this <strong>bit of code</strong> even when <code>nested</code> like this.</code><p>Aber dieser <wbr>Absatz sollte übersetzt werden. Und Absatz sollte nicht zwei Worte sein.</p>
     
     <!-- Comments are allowed. In the following sentence <br> should cause the
-         paragraph to be translated as two sentences instead of one.--><p>Dieser Satz beginnt mit <br>transatlantischen Gewässern sind kalt.</p>
-    <p>Dieser Satz beginnt mit <b>transatlantischen</b> Gewässern ist kalt.</p>
+         paragraph to be translated as two sentences instead of one.--><p>Dieser Satz beginnt mit Trans<br>Das atlantische Wasser ist kalt.</p>
+    <p>Dieser Satz beginnt mit <b>transatlantischen</b> Gewässern sind kalt.</p>
     <p>Ich <b>fahre gerne</b> <i>mein Auto</i>.</p></div>
 
