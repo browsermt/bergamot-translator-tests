@@ -15,7 +15,7 @@ import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-path', type=str)
-    parser.add_argument('--ssplit-prefix-file', type=str, required=True)
+    parser.add_argument('--ssplit-prefix-file', type=str, required=False)
     parser.add_argument('--ssplit-mode', type=str, required=False, default='paragraph')
     parser.add_argument('--quality', type=str, required=False, default='')
     parser.add_argument('--max-length-break', type=int, required=False, default=128)
