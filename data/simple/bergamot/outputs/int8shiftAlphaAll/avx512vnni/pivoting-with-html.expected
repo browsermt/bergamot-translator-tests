@@ -1,14 +1,42 @@
 
     
-    <div class="wrap"><div class="image-wrap"><img src="/images/about.jpg" alt=""></div><h2 id="the-bergamot-project">The Bergamot Project</h2>
+    
+    <div class="wrap"><script>
+        document.title = '<Html> & entities should be ignored';
+    </script><div class="image-wrap"><img src="/images/about.jpg" alt=""></div><h2 id="the-bergamot-project">The Bergamot Project</h2>
     <p>The Bergamot project will add and improve client-side machine translation in a web browser.</p>
     <p>Unlike current cloud-based options, running directly on users’ machines empowers citizens to preserve their privacy and increases the uptake of language technologies in Europe in various sectors that require confidentiality. Free software integrated with an open-source web browser, such as Mozilla Firefox, will enable bottom-up adoption by non-experts, resulting in cost savings for private and public sector users who would otherwise procure translation or operate monolingually.</p>
-    <p>Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.</p></div>
+    <p>Bergamot is a consortium coordinated by the University of Edinburgh with partners Charles University in Prague, the University of Sheffield, University of Tartu, and Mozilla.</p>
+    
+        <form method="post"><label for="remarks">Any remarks?</label>
+        
+    
+    
+    <textarea id="remarks">This text should not be translated.</textarea></form><code>Nor should this <strong>bit of code</strong> even when <code>nested</code> like this.</code><p>But this <wbr>paragraph should be translated. And paragraph should not be two words.</p>
+    
+    <!-- Comments are allowed. In the following sentence <br> should cause the
+         paragraph to be translated as two sentences instead of one.--><p>This sentence starts with trans<br>atlantic waters are cold.</p>
+    <p>This sentence starts with <b>trans</b> atlantic waters are cold.</p>
+    <p>I <b>like</b> to drive <i>my car</i>.</p></div>
 
 
     
-    <div class="wrap"><div class="image-wrap"><img src="/images/about.jpg" alt=""></div><h2 id="the-bergamot-project">The Bergamot project</h2>
+    
+    <div class="wrap"><script>
+        document.title = '<Html> & entities should be ignored';
+    </script><div class="image-wrap"><img src="/images/about.jpg" alt=""></div><h2 id="the-bergamot-project">The Bergamot project</h2>
     <p>The Bergamot project will add and improve the translation of the client-side machine into a web browser.</p>
     <p>Unlike current cloud-based options, working directly on users' machines allows citizens to preserve their privacy and increases the adoption of language technologies in Europe in various sectors that require confidentiality. Free software integrated with an open-source web browser, such as Mozilla Firefox, will allow the adoption from bottom up by non-experts, resulting in cost savings for private and public sector users who would otherwise acquire translation or operate monolinguily.</p>
-    <p>Bergamot is a consortium coordinated by the University of Edinburgh with partners from Charles University in Prague, the University of Sheffield, the University of Tartu and Mozilla.</p></div>
+    <p>Bergamot is a consortium coordinated by the University of Edinburgh with partners from Charles University in Prague, the University of Sheffield, the University of Tartu and Mozilla.</p>
+    
+        <form method="post"><label for="remarks">Any comment?</label>
+        
+    
+    
+    <textarea id="remarks">This text should not be translated.</textarea></form><code>Nor should this <strong>bit of code</strong> even when <code>nested</code> like this.</code><p>But this <wbr>paragraph should be translated. And the paragraph should not be two words.</p>
+    
+    <!-- Comments are allowed. In the following sentence <br> should cause the
+         paragraph to be translated as two sentences instead of one.--><p>This phrase begins with trans<br>The Atlantic waters are cold.</p>
+    <p>This phrase <b></b>begins with the transatlantic waters are cold.</p>
+    <p>I <b>like</b> to drive <i>my car</i>.</p></div>
 
