@@ -15,7 +15,7 @@ import argparse
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config-path', type=str)
-    parser.add_argument('--ssplit-prefix-file', type=str, required=True)
+    parser.add_argument('--ssplit-prefix-file', type=str, required=False, default=None)
     parser.add_argument('--ssplit-mode', type=str, required=False, default='paragraph')
     parser.add_argument('--quality', type=str, required=False, default='')
     parser.add_argument('--max-length-break', type=int, required=False, default=128)
@@ -28,13 +28,17 @@ if __name__ == '__main__':
         data = yaml.load(fp, Loader=yaml.FullLoader)
 
     data.update({
-        'ssplit-prefix-file': args.ssplit_prefix_file,
         'ssplit-mode': args.ssplit_mode,
         'max-length-break': args.max_length_break,
         'mini-batch-words': args.mini_batch_words,
         'alignment': 'soft', 
         'max-length-factor': 2.0,
     })
+
+    if args.ssplit_prefix_file:
+        data.update({
+            'ssplit-prefix-file': args.ssplit_prefix_file,
+        })
 
     if args.quality:
         data.update({

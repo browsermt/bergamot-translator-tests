@@ -48,8 +48,8 @@ python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL
 
 # One additional configuration for decoder
 python3 ../tools/patch-marian-for-bergamot.py --config-path ${OUTPUT_DIR}/$MODEL/config.intgemm8bitalpha.yml \
-    --ssplit-prefix-file nonbreaking_prefix.en --ssplit-mode sentence \
-    --max-length-break 1024 --mini-batch-words 1024 \
+    --ssplit-mode sentence \
+    --max-length-break 1024 --mini-batch-words 2048 \
     --output-suffix "decoder.yml"
 
 # en->es
