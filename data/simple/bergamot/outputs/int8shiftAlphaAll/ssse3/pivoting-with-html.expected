@@ -37,6 +37,6 @@
     
     <!-- Comments are allowed. In the following sentence <br> should cause the
          paragraph to be translated as two sentences instead of one.--><p>This phrase begins with trans<br>The Atlantic waters are cold.</p>
-    <p>This phrase begins with <b>the</b> transatlantic waters are cold.</p>
+    <p>This phrase begins with the <b>transatlantic</b> waters are cold.</p>
     <p>I <b>like</b> to drive <i>my car</i>.</p></div>
 
